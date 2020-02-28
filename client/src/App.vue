@@ -12,11 +12,16 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: HelveticaNow;
+  color: #FFF;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+li {
+    list-style-type: none;
+}
+@font-face {
+  font-family: HelveticaNow;
+  src: url('assets/HelveticaNowDisplayXBlk.otf');
 }
 </style>
