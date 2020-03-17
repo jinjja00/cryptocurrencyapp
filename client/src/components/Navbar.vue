@@ -8,7 +8,7 @@
                     <v-btn text class="nav-links">BLOG</v-btn>
                 </li>
                 <li>
-                    <v-btn rounded color="#CDCDCD" class="nav-links" to="/Login">Login</v-btn>
+                    <v-btn rounded color="#CDCDCD" class="nav-links" to="/login">Login</v-btn>
                 </li>
             </ul>
         </nav>

@@ -1,37 +1,29 @@
 <template>
     <div>
         <h1> Register</h1>
-         <input 
-            type="text" 
-            name="firstname"
-            placeholder="firstname"
+         <v-text-field
+            label="firstname"
             v-model="firstname"
         />
-         <input 
-            type="text" 
-            name="lastname"
-            placeholder="lastname"
+         <v-text-field
+            label="lastname"
             v-model="lastname"
         />
-        <input 
-            type="email" 
-            name="email"
-            placeholder="email"
+         <v-text-field
+            label="email"
             v-model="email"
         />
-        <input 
-            type="password" 
-            name="password"
+         <v-text-field
+            label="Password"
             v-model="password"
-            placeholder="password"
         />
-
         <br>
         <div class="error"
             v-html="error"
         />
         <br>
         <button @click="register">Register</button>
+        <v-btn to="login">Login</v-btn>
     </div>
 </template>
 
@@ -50,12 +42,15 @@ export default  {
     methods: {
         async register () {
             try {
-                await AuthenticationService.register({
+                const response = await AuthenticationService.register({
                     firstName: this.firstname,
                     lastName: this.lastname,
                     email: this.email,
                     password: this.password
                 })
+
+                this.$store.dispatch('setToken', response.data.token)
+                this.$store.dispatch('setUser', response.data.user)
             } catch(error) {
                 this.error = error.response.data.error
             }
