@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <v-app>
+      <router-view/>
+    </v-app>
   </div>
 </template>
 
@@ -11,16 +13,16 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: HelveticaNow;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-li {
+  #app {
+    font-family: HelveticaNow;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  li {
     list-style-type: none;
-}
-@font-face {
-  font-family: HelveticaNow;
-  src: url('assets/HelveticaNowDisplayXBlk.otf');
-}
+  }
+  @font-face {
+    font-family: HelveticaNow;
+    src: url('assets/HelveticaNowDisplayXBlk.otf');
+  }
 </style>
