@@ -9,43 +9,43 @@
               </svg>
          </div>
        </header>
-       <v-container-fluid>
-         <div class="wave-container">
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
-          </svg>
-         </div>
-         <h1 class="text-center ma-0">
-           <span ref="subtitle">Share</span>
-           <span ref="subtitle">your</span>
-           <span ref="subtitle">favorite..</span>
-         </h1>
-         <v-row justify="center">
-           <v-col cols="12" sm="2">
-              <span tile class="ma-3">Test</span>
-              <span tile class="ma-3">Test</span>
-              <span tile class="ma-3">Test</span>
-           </v-col>
-         </v-row>
-       </v-container-fluid>
+       <v-lazy :options="{threshold: .5}" min-height="400">
+        <v-container-fluid>
+          <div class="wave-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+              <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+            </svg>
+          </div>
+            <h1 class="text-center ma-0">
+                <span ref="subtitle">Share</span>
+                <span ref="subtitle">your</span>
+                <span ref="subtitle">favorite hobbies</span>
+            </h1>
+          <v-row justify="center">
+            <v-col cols="12" sm="2" class="icon-animation">
+                <v-img :src="require('@/assets/hobbiesIcon/console.svg')"/>
+                <v-img :src="require('@/assets/hobbiesIcon/football.svg')"/>
+                <v-img :src="require('@/assets/hobbiesIcon/gym.svg')"/>
+                <v-img :src="require('@/assets/hobbiesIcon/hiking.svg')"/>
+                <v-img :src="require('@/assets/hobbiesIcon/pc.svg')"/>
+                <v-img :src="require('@/assets/hobbiesIcon/swim.svg')"/>
+            </v-col>
+          </v-row>
+        </v-container-fluid>
+       </v-lazy>
     </div>
 </template>
 
 <script>
     import Navbar from "@/components/Navbar.vue"
-    import { TimelineMax, Back } from 'gsap'
+    import { Power0, TweenMax, TimelineMax, Back ,TweenLite, Linear} from 'gsap'
 
     export default {
         components: {
             Navbar
         },
         mounted : () => {
-          const timeline = new TimelineMax() 
-          timeline.to(".text-center", 0, {visibility: 'hidden', opacity: 0})
-          timeline.staggerFromTo(".text-center span", 0.5, 
-          {ease: Back.easeOut.config(1.7), opacity: 0, bottom: -80},
-          {ease: Back.easeOut.config(1.7), opacity: 1, bottom: 0}, 0.05);
-          timeline.to(".text-center", 0.2, {visibility: 'visible' ,opacity: 1}) 
+
         }
     }
 </script>
@@ -79,6 +79,7 @@
       transform-origin: bottom;
       animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
     }
+
     @keyframes animateWave {
       0% {
         transform: scale(1,0);
