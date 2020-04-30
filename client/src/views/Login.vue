@@ -32,6 +32,10 @@
             
                    this.$store.dispatch('setToken', response.data.token)
                    this.$store.dispatch('setUser', response.data.user)
+                   if (this.$store.state.isUserLoggedin) {
+                       this.$router.push('/main')
+                   }
+                   console.log(this.$store.state.isUserLoggedin)
                 } catch (error) {
                     this.error = error.response.data.error
                 }

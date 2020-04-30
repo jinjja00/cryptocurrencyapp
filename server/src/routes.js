@@ -1,4 +1,5 @@
 const AuthenticationController =  require('./controllers/AuthenticationController')
+const CryptoController = require('./controllers/CryptoController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 
 module.exports = (app) => {
@@ -8,4 +9,6 @@ module.exports = (app) => {
 
     app.post('/login',
     AuthenticationController.login)
+
+    app.get('/getcrypto', CryptoController.getCrypto)
 }

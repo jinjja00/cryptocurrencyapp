@@ -3,49 +3,40 @@
        <header class="background">
          <Navbar/>
          <div class="wave-container">
-             <h1>Welcome!</h1>
+             <h1>Welcome! Tabarnak</h1>
              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
               </svg>
          </div>
        </header>
        <v-lazy :options="{threshold: .5}" min-height="400">
-        <v-container-fluid>
           <div class="wave-container">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
               <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
             </svg>
           </div>
-            <h1 class="text-center ma-0">
-                <span ref="subtitle">Share</span>
-                <span ref="subtitle">your</span>
-                <span ref="subtitle">favorite hobbies</span>
-            </h1>
-          <v-row justify="center">
-            <v-col cols="12" sm="2" class="icon-animation">
-                <v-img :src="require('@/assets/hobbiesIcon/console.svg')"/>
-                <v-img :src="require('@/assets/hobbiesIcon/football.svg')"/>
-                <v-img :src="require('@/assets/hobbiesIcon/gym.svg')"/>
-                <v-img :src="require('@/assets/hobbiesIcon/hiking.svg')"/>
-                <v-img :src="require('@/assets/hobbiesIcon/pc.svg')"/>
-                <v-img :src="require('@/assets/hobbiesIcon/swim.svg')"/>
-            </v-col>
-          </v-row>
-        </v-container-fluid>
        </v-lazy>
     </div>
 </template>
 
 <script>
     import Navbar from "@/components/Navbar.vue"
+    import CryptoService from '@/services/CryptoService'
     import { Power0, TweenMax, TimelineMax, Back ,TweenLite, Linear} from 'gsap'
 
     export default {
         components: {
             Navbar
         },
-        mounted : () => {
-
+        mounted : function()  {
+         this.homeCryptoNews()
+        },
+        methods: {
+          homeCryptoNews () {
+           CryptoService.getCryptoNews.then(response =>{
+             console.log(response.data)
+           })
+          }
         }
     }
 </script>
