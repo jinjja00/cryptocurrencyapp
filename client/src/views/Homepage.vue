@@ -16,27 +16,26 @@
             </svg>
           </div>
        </v-lazy>
+       <div>
+         <h1>api test</h1>
+       </div>
     </div>
 </template>
 
 <script>
     import Navbar from "@/components/Navbar.vue"
-    import CryptoService from '@/services/CryptoService'
-    import { Power0, TweenMax, TimelineMax, Back ,TweenLite, Linear} from 'gsap'
-
+    import store from  '@/store/store'
+    import { mapState } from "vuex";
+    
     export default {
         components: {
             Navbar
         },
         mounted : function()  {
-         this.homeCryptoNews()
+  
         },
-        methods: {
-          homeCryptoNews () {
-           CryptoService.getCryptoNews.then(response =>{
-             console.log(response.data)
-           })
-          }
+        computed: {
+          ...mapState(['crypto'])
         }
     }
 </script>

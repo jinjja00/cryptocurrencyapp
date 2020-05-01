@@ -19,9 +19,8 @@ module.exports = {
             gzip: true
         }
         rp(requestOptions).then(response => {
-           res.send({
-               crypto: response.data
-           })
+           res.send(
+                response.data)
           }).catch((err) => {
             console.log('API call error:', err.message);
           });
