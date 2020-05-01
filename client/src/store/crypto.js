@@ -1,4 +1,4 @@
-import CryptoService from '@/services/CryptoService'
+import Api from '@/services/Api'
 
 const state = {
     cryptoNews: []
@@ -12,14 +12,12 @@ const mutations = {
   
 const actions = {
     fetchCrypto({commit}, state) {
-        return CryptoService.getCryptoNews
-            .then((response) => {
+        return Api().get('getcrypto')
+            .then(response => {
                 console.log(response)
                 commit('setCrypto', response.data)
                 return response.data
-            }).catch(error => {
-                throw new Error(`API ${error}`)
-            });
+            })
     }
 }
 

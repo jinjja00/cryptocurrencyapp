@@ -32,7 +32,7 @@
             Navbar
         },
         mounted : function()  {
-  
+          store.dispatch('crypto/fetchCrypto')
         },
         computed: {
           ...mapState(['crypto'])
