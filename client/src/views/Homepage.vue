@@ -17,7 +17,27 @@
           </div>
        </v-lazy>
        <div>
-         <h1>api test</h1>
+         <v-app>
+             <v-data-table
+                :headers="headers"
+                :items="crypto.cryptoNews"
+                class="elevation-1"
+              >
+                <template slot="item" slot-scope="props">
+                  <tr>
+                    <!-- <v-tooltip left>
+                      <template v-slot:activator="{ on }">  v-on="on"-->
+                          <td nowrape="true">{{ props.item.symbol }}</td>
+                      <!-- </template>
+                      <span><td nowrape="true">{{ props.item.name }}</td></span>
+                    </v-tooltip> -->
+                    <td nowrape="true">{{ props.item.quote.USD.price }}</td>
+                    <td nowrape="true">{{ props.item.quote.USD.percent_change_24h }} %</td>
+                    <td nowrape="true">{{ props.item.last_updated }}</td>
+                  </tr>
+                </template>
+              </v-data-table>
+         </v-app>
        </div>
     </div>
 </template>
@@ -28,11 +48,35 @@
     import { mapState } from "vuex";
     
     export default {
+        data () {
+          return {
+             headers: [
+                {
+                  text: 'Name',
+                  align: 'start'
+                },
+                {
+                  text: 'Price'
+            
+                },
+                {
+                  text: 'Percent (24h)'
+                },
+                {
+                  text: 'Last Updated'
+                }
+            ]
+          }
+        },
         components: {
             Navbar
         },
-        mounted : function()  {
+        beforeCreate: function () {
           store.dispatch('crypto/fetchCrypto')
+        },
+        mounted : function ()  {
+  
+          console.log(this.crypto.cryptoNews)
         },
         computed: {
           ...mapState(['crypto'])

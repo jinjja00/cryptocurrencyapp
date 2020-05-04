@@ -13,10 +13,9 @@ const mutations = {
 const actions = {
     fetchCrypto({commit}, state) {
         return Api().get('getcrypto')
-            .then(response => {
-                console.log(response)
-                commit('setCrypto', response.data)
-                return response.data
+            .then(response => response.data)
+            .then(crypto => {
+                commit('setCrypto', crypto)
             })
     }
 }
