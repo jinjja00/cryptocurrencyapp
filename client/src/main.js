@@ -11,6 +11,7 @@ Vue.config.productionTip = false
 
 sync(store, router)
 
+Vue.use(require('vue-moment'))
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

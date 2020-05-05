@@ -5,9 +5,6 @@
          </div>
             <ul class="main-nav">
                 <li>
-                    <v-btn text class="nav-links">BLOG</v-btn>
-                </li>
-                <li>
                     <v-btn rounded color="#CDCDCD" class="nav-links" to="/login">Login</v-btn>
                 </li>
             </ul>
