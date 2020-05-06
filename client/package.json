@@ -11,9 +11,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "apexcharts": "^3.19.0",
     "axios": "^0.19.2",
     "gsap": "^3.2.2",
     "vue": "^2.5.2",
+    "vue-apexcharts": "^1.5.3",
     "vue-moment": "^4.1.0",
     "vue-router": "^3.0.1",
     "vuetify": "^2.2.15",

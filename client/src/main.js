@@ -6,11 +6,13 @@ import router from './router'
 import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
 import vuetify from '@/plugins/vuetify'
+import VueApexCharts from 'vue-apexcharts'
 
 Vue.config.productionTip = false
 
 sync(store, router)
 
+Vue.component('apexchart', VueApexCharts)
 Vue.use(require('vue-moment'))
 /* eslint-disable no-new */
 new Vue({

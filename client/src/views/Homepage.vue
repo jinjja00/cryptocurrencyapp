@@ -35,6 +35,9 @@
                 </template>
               </v-data-table>
             </v-app>
+            <div>
+               <apexchart width="500" type="candlestick" :options="options" :series="series"></apexchart>
+            </div>
          </v-row>
        </v-container>
     </div>
@@ -43,25 +46,49 @@
 <script>
     import store from  '@/store/store'
     import { mapState } from "vuex";
-    
+
     export default {
         data () {
           return {
-             headers: [
-                {
-                  text: 'Name',
-                  align: 'start'
-                },
-                {
-                  text: 'Price (USD)'
-            
-                },
-                {
-                  text: 'Percent (24h)'
-                },
-                {
-                  text: 'Last Updated'
-                }
+            options: {
+              chart: {
+                id: 'vuechart-example'
+              },
+              xaxis: {
+                categories: ['BTC', 'ETH', 'XRP', 1994, 1995, 1996, 1997, 1998]
+              }
+            },
+            series: [{
+              data: [
+               {
+                  x: new Date(2016, 1, 1),
+                  y: [40, 30, 29, 10]
+               },
+               {
+                  x: new Date(2016, 4, 6),
+                  y: [51.98, 56.29, 51.59, 53.85]
+               },
+               {
+                  x: new Date(2016, 6, 1),
+                  y: [55, 56.29, 67, 80]
+               },
+              ]
+            }],
+            headers: [
+              {
+                text: 'Name',
+                align: 'start'
+              },
+              {
+                text: 'Price (USD)'
+          
+              },
+              {
+                text: 'Percent (24h)'
+              },
+              {
+                text: 'Last Updated'
+              }
             ]
           }
         },
