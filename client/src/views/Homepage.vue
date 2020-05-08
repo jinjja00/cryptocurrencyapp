@@ -40,6 +40,7 @@
             </div>
          </v-row>
        </v-container>
+       {{crypto.cryptoQuoteHistory}}
     </div>
 </template>
 
@@ -94,10 +95,10 @@
         },
         beforeCreate: function () {
           store.dispatch('crypto/fetchCrypto')
+          store.dispatch('crypto/fetchCryptoQuoteHistory')
         },
         mounted : function ()  {
   
-          console.log(this.crypto.cryptoNews)
         },
         computed: {
           ...mapState(['crypto'])

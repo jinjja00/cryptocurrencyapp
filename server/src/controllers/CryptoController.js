@@ -14,28 +14,32 @@ let requestOptions = {
 
 module.exports = {
     async getCrypto (req, res) {
-        requestOptions.url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
-        requestOptions.qs =  {
-            'start': '1',
-            'limit': '10',
-            'convert': 'USD'
-        }
-
-        rp(requestOptions).then(response => {
+        const request ={
+            ...requestOptions,
+            url: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+            qs: { 
+                'start': '1',
+                'limit': '10',
+                'convert': 'USD'
+            }
+          }
+      
+        rp(request).then(response => {
            res.send(response.data)
           }).catch((err) => {
             console.log('API call error:', err.message);
           });
     },
     async getCryptoQuoteHistory(req, res) {
-        requestOptions.url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/historical'
-        requestOptions.qs =  {
-            /* Send the id from the homepage */
-            'id': '1',
-            'count': '2',
-        }
-
-        rp(requestOptions).then(response => {
+        const request ={
+            ...requestOptions,
+            url: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/historical',
+            qs: { 
+                'id': '1'
+            }
+          }
+     
+        rp(request).then(response => {
             res.send(response.data)
            }).catch((err) => {
              console.log('API call error:', err.message);
