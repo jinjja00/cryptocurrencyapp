@@ -23,6 +23,7 @@
                         </td>
                         <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</td>
                         <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
+                        <td><v-sparkline :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
                       </tr>
                     </template>
                   </v-data-table>
@@ -43,6 +44,7 @@
     export default {
         data () {
           return {
+            cryptoSelected: {},
             options: {
               chart: {
                 id: 'vuechart-example'
@@ -81,16 +83,18 @@
               },
               {
                 text: 'Last Updated'
+              },
+              {
+                text: 'Sparkline'
               }
             ]
           }
         },
         beforeCreate: function () {
           store.dispatch('crypto/fetchCrypto')
-
         },
         mounted : function ()  {
-  
+          console.log(this.crypto.cryptoNews) 
         },
         computed: {
           ...mapState(['crypto'])
@@ -100,7 +104,12 @@
             return parseFloat(num).toFixed(2)
           },
           handleClick (cryptoRow) {
-            console.log(cryptoRow)
+            if (this.cryptoSelected.id === cryptoRow.id) {
+              return
+            }
+            this.cryptoSelected = cryptoRow
+            
+            store.dispatch('crypto/fetchCryptoQuoteHistory', this.cryptoSelected) 
           }
         }
     }
