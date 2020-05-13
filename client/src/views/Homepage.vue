@@ -29,7 +29,7 @@
                   </v-data-table>
                   <div> </div>
                 <v-card class="mr-5">
-                  <apexchart width="500" type="candlestick" :options="options" :series="series"></apexchart>
+                  <apexchart width="500" type="line" :options="options" :series="series" ref="apexchart"></apexchart>
                 </v-card>
             </v-row>
           </v-container>
@@ -50,25 +50,10 @@
                 id: 'vuechart-example'
               },
               xaxis: {
-                categories: ['BTC', 'ETH', 'XRP', 1994, 1995, 1996, 1997, 1998]
-              }
+               type: 'numeric'
+              },
+              series: [],
             },
-            series: [{
-              data: [
-               {
-                  x: new Date(2016, 1, 1),
-                  y: [40, 30, 29, 10]
-               },
-               {
-                  x: new Date(2016, 4, 6),
-                  y: [51.98, 56.29, 51.59, 53.85]
-               },
-               {
-                  x: new Date(2016, 6, 1),
-                  y: [55, 56.29, 67, 80]
-               },
-              ]
-            }],
             headers: [
               {
                 text: 'Name',
@@ -110,6 +95,13 @@
             this.cryptoSelected = cryptoRow
             
             store.dispatch('crypto/fetchCryptoQuoteHistory', this.cryptoSelected) 
+         
+            if (this.$store.state.crypto.cryptoQuotePriceHistory.prices) {
+              this.$refs.apexchart.updateSeries([{
+                data: this.$store.state.crypto.cryptoQuotePriceHistory.prices
+              }])
+              this.options.series.data = this.$store.state.crypto.cryptoQuotePriceHistory.prices
+            }
           }
         }
     }

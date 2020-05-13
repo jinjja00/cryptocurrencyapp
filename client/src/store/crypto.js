@@ -28,7 +28,7 @@ const actions = {
             params: {
                 coinId:payload.id,
                 vs_currency:'usd',
-                days:'10'
+                days:'7'
             }
         })
         .then(response => response.data)
