@@ -8,6 +8,7 @@ import store from '@/store/store'
 import vuetify from '@/plugins/vuetify'
 import VueApexCharts from 'vue-apexcharts'
 
+
 Vue.config.productionTip = false
 
 sync(store, router)

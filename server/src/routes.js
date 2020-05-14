@@ -7,4 +7,5 @@ module.exports = (app) => {
     app.post('/login', AuthenticationController.login),
     app.get('/getcrypto', CryptoController.getCrypto)
     app.get('/getcryptoquote', CryptoController.getCryptoQuoteHistory)
+    app.get('/getcryptoeventincoming', CryptoController.getCryptoEventsIncoming)
 }

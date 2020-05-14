@@ -1,5 +1,15 @@
 <template>
     <div>
+      <div>
+        <v-tool-bar
+          dark
+          prominent
+        >
+          <v-btn icon>
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
+        </v-tool-bar>
+      </div>
        <header class="background">
           <v-container>
             <v-row justify="center">
@@ -12,12 +22,7 @@
                   >
                     <template slot="item" slot-scope="props">
                       <tr @click="handleClick(props.item)">
-                        <!-- <v-tooltip left>
-                          <template v-slot:activator="{ on }">  v-on="on"-->
-                              <td nowrape="true" style="text-transform: uppercase">{{ props.item.symbol }}</td>
-                          <!-- </template>
-                          <span><td nowrape="true">{{ props.item.name }}</td></span>
-                        </v-tooltip> -->
+                        <td nowrape="true" style="text-transform: uppercase">{{ props.item.symbol }}</td>
                         <td nowrape="true">
                           <v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.current_price) }} $</v-chip>
                         </td>
@@ -29,11 +34,60 @@
                   </v-data-table>
                   <div> </div>
                 <v-card class="mr-5">
-                  <apexchart width="500" type="line" :options="options" :series="series" ref="apexchart"></apexchart>
+                  <apexchart v-if="options.series" width="500" type="line" :options="options" :series="series" ref="apexchart"></apexchart>
                 </v-card>
             </v-row>
           </v-container>
        </header>
+       <v-container>
+         <h2>Next Blockchain Events</h2>
+         <v-card  class="mx-auto my-12" max-width="374" v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index">
+           <v-img
+            height="250"
+            :src="event.screenshot"/>
+
+            <v-card-title>{{event.title}}</v-card-title>
+            <v-card-text>
+             <div class="my-4 subtitle-1">{{event.start_date}} to {{event.end_date}}</div>
+             <div>{{event.description.substring(0,200)+'...'}}</div>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                target="_blank"
+                :href="event.website"
+                text
+                color="deep-purple accent-4"
+              >
+                Read more..
+              </v-btn>
+            </v-card-actions>
+         </v-card>
+       </v-container>
+       <v-footer dark padless>
+          <v-card
+            flat
+            tile
+            class="black lighten-1 white--text text-center"
+            width="100%"
+          >
+            <v-card-text class="mx-auto">
+              <v-btn
+                v-for="icon in icons"
+                :key="icon"
+                class="mx-4 white--text"
+                icon
+              >
+                <v-icon size="24px">{{ icon }}</v-icon>
+              </v-btn>
+            </v-card-text>
+            
+            <v-divider></v-divider>
+
+            <v-card-text class="white--text">
+              {{ new Date().getFullYear() }} — <strong>Powered by CoinGecko API</strong>
+            </v-card-text>
+          </v-card>
+       </v-footer>
     </div>
 </template>
 
@@ -72,11 +126,18 @@
               {
                 text: 'Sparkline'
               }
-            ]
+            ],
+            icons: [
+              'mdi-gmail',
+              'mdi-github',
+              'mdi-linkedin',
+              'mdi-instagram',
+            ],
           }
         },
         beforeCreate: function () {
           store.dispatch('crypto/fetchCrypto')
+          store.dispatch('crypto/fetchCryptoEventsIncoming')
         },
         mounted : function ()  {
           console.log(this.crypto.cryptoNews) 

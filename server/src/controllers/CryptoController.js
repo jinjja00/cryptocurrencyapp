@@ -33,5 +33,14 @@ module.exports = {
       .catch(error => {
         console.log(error)
       }) 
+    },
+    async getCryptoEventsIncoming(req, res) {
+      await CoinGeckoClient.events.all()
+      .then(response => {
+        res.send(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
 }

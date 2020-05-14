@@ -2,7 +2,8 @@ import Api from '@/services/Api'
 
 const state = {
     cryptoNews: [],
-    cryptoQuotePriceHistory: {}
+    cryptoQuotePriceHistory: [],
+    cryptoEventIncoming: []
 }
 
 const mutations = {
@@ -11,6 +12,9 @@ const mutations = {
     },
     setCryptoHistory(state, crypto) {
         state.cryptoQuotePriceHistory = crypto
+    },
+    setCryptoEvents(state, event) {
+        state.cryptoEventIncoming = event
     }
 }
   
@@ -34,6 +38,13 @@ const actions = {
         .then(response => response.data)
         .then(price => {
             commit('setCryptoHistory', price)
+        })
+    },
+    fetchCryptoEventsIncoming({commit}, state) {
+        return Api().get('getcryptoeventincoming')
+        .then(response => response.data)
+        .then(events => {
+            commit('setCryptoEvents', events)
         })
     }
 }
