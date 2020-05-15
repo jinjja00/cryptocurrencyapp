@@ -11,172 +11,78 @@
         </v-tool-bar>
       </div>
        <header class="background">
-          <v-container>
-            <v-row justify="center">
-                <v-data-table
-                    :headers="headers"
-                    :items="crypto.cryptoNews"
-                    class="mr-5"
-                    :hide-default-footer="true"
-                    light
-                  >
-                    <template slot="item" slot-scope="props">
-                      <tr @click="handleClick(props.item)">
-                        <td nowrape="true" style="text-transform: uppercase">{{ props.item.symbol }}</td>
-                        <td nowrape="true">
-                          <v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.current_price) }} $</v-chip>
-                        </td>
-                        <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</td>
-                        <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
-                        <td><v-sparkline :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
-                      </tr>
-                    </template>
-                  </v-data-table>
-                  <div> </div>
-                <v-card class="mr-5">
-                  <apexchart v-if="options.series" width="500" type="line" :options="options" :series="series" ref="apexchart"></apexchart>
-                </v-card>
-            </v-row>
-          </v-container>
+         <div class="wave-container">
+             <h1>Your crypto news!</h1>
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+              </svg>
+         </div>
        </header>
-       <v-container>
-         <h2>Next Blockchain Events</h2>
-         <v-card  class="mx-auto my-12" max-width="374" v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index">
-           <v-img
-            height="250"
-            :src="event.screenshot"/>
-
-            <v-card-title>{{event.title}}</v-card-title>
-            <v-card-text>
-             <div class="my-4 subtitle-1">{{event.start_date}} to {{event.end_date}}</div>
-             <div>{{event.description.substring(0,200)+'...'}}</div>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn
-                target="_blank"
-                :href="event.website"
-                text
-                color="deep-purple accent-4"
-              >
-                Read more..
-              </v-btn>
-            </v-card-actions>
-         </v-card>
-       </v-container>
-       <v-footer dark padless>
-          <v-card
-            flat
-            tile
-            class="black lighten-1 white--text text-center"
-            width="100%"
-          >
-            <v-card-text class="mx-auto">
-              <v-btn
-                v-for="icon in icons"
-                :key="icon"
-                class="mx-4 white--text"
-                icon
-              >
-                <v-icon size="24px">{{ icon }}</v-icon>
-              </v-btn>
-            </v-card-text>
-            
-            <v-divider></v-divider>
-
-            <v-card-text class="white--text">
-              {{ new Date().getFullYear() }} — <strong>Powered by CoinGecko API</strong>
-            </v-card-text>
-          </v-card>
-       </v-footer>
+        <v-container-fluid>
+          <div class="wave-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+              <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+            </svg>
+          </div>
+          <cryptoinformation/>
+        </v-container-fluid>
+       <cryptoeventslist/>
+       <footercrypto/>
     </div>
 </template>
 
 <script>
-    import store from  '@/store/store'
-    import { mapState } from "vuex";
+      import cryptoinformation from '@/components/CryptoInformation.vue'
+      import footercrypto from '@/components/CryptoFooter.vue'
+      import cryptoeventslist from '@/components/CryptoEventsList.vue'
 
-    export default {
-        data () {
-          return {
-            cryptoSelected: {},
-            options: {
-              chart: {
-                id: 'vuechart-example'
-              },
-              xaxis: {
-               type: 'numeric'
-              },
-              series: [],
-            },
-            headers: [
-              {
-                text: 'Name',
-                align: 'start',
-                value : 'symbol'
-              },
-              {
-                text: 'Price (USD)'
-              },
-              {
-                text: 'Percent (24h)'
-              },
-              {
-                text: 'Last Updated'
-              },
-              {
-                text: 'Sparkline'
-              }
-            ],
-            icons: [
-              'mdi-gmail',
-              'mdi-github',
-              'mdi-linkedin',
-              'mdi-instagram',
-            ],
-          }
-        },
-        beforeCreate: function () {
-          store.dispatch('crypto/fetchCrypto')
-          store.dispatch('crypto/fetchCryptoEventsIncoming')
-        },
-        mounted : function ()  {
-          console.log(this.crypto.cryptoNews) 
-        },
-        computed: {
-          ...mapState(['crypto'])
-        },
-        methods: {
-          roundDecimal (num) {
-            return parseFloat(num).toFixed(2)
+      export default {
+          components: {
+            cryptoinformation,
+            cryptoeventslist,
+            footercrypto
           },
-          handleClick (cryptoRow) {
-            if (this.cryptoSelected.id === cryptoRow.id) {
-              return
+          data () {
+            return {
             }
-            this.cryptoSelected = cryptoRow
-            
-            store.dispatch('crypto/fetchCryptoQuoteHistory', this.cryptoSelected) 
-         
-            if (this.$store.state.crypto.cryptoQuotePriceHistory.prices) {
-              this.$refs.apexchart.updateSeries([{
-                data: this.$store.state.crypto.cryptoQuotePriceHistory.prices
-              }])
-              this.options.series.data = this.$store.state.crypto.cryptoQuotePriceHistory.prices
-            }
-          }
-        }
-    }
+          },
+          mounted : function ()  {
+          } 
+      }
 </script>
 
 <style scoped>
     h1 {
         font-size: 5rem;
-        margin: 15rem 1rem 2rem 1rem;
+        margin: 20rem 1rem 2rem 1rem;
         text-shadow: 2px 2px #A9A9A9
     }
    
+    .wave-container > svg {
+        display: block;
+    }
+    .wave-container {
+        position: relative;
+        color: #f3f4f5;
+        text-align: center; 
+    }
     .background {
         background: url('../assets/keyboardbanner.jpg') no-repeat center center fixed;
         background-size: cover;
+        height: 90vh;
+        overflow: hidden;
+    }
+    .wave-container > svg{
+      display: block;
+      transform-origin: bottom;
+      animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+    @keyframes animateWave {
+      0% {
+        transform: scale(1,0);
+      }
+      100% {
+        transform: scale(1,1);
+      }
     }
 </style>
