@@ -1,33 +1,32 @@
 <template>
     <div>
-      <div>
-        <v-tool-bar
-          dark
-          prominent
-        >
-          <v-btn icon>
-            <v-icon>mdi-account</v-icon>
-          </v-btn>
-        </v-tool-bar>
-      </div>
-       <header class="background">
-         <div class="wave-container">
-             <h1>Your crypto news!</h1>
-             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-              </svg>
-         </div>
-       </header>
-        <v-container-fluid>
+        <div>
+            <v-app-bar
+              dark
+              prominent>
+                <v-btn icon>
+                  <v-icon>mdi-account</v-icon>
+                </v-btn>
+            </v-app-bar>
+        </div>
+        <header class="background">
           <div class="wave-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-              <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
-            </svg>
+              <h1>Your crypto news!</h1>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                  <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+              </svg>
           </div>
-          <cryptoinformation/>
-        </v-container-fluid>
-       <cryptoeventslist/>
-       <footercrypto/>
+        </header>
+        <v-container fluid class="pa-0">
+            <div class="wave-container">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+              </svg>
+            </div>
+            <cryptoinformation/>
+        </v-container>
+        <cryptoeventslist/>
+        <footercrypto/>
     </div>
 </template>
 

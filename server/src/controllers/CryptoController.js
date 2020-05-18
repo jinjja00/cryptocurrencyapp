@@ -12,7 +12,7 @@ module.exports = {
           per_page: 10,
           page: 1,
           sparkline: true,
-          price_change_percentage: "24h"})
+          price_change_percentage: "1h,24h,7d"})
         .then(response => {
           res.send(response.data)
         })
@@ -20,9 +20,16 @@ module.exports = {
           console.log(error)
         })
     },
+    async getCoinInformation (req, res) {
+      await CoinGeckoClient.coins.fetch(req.query.coinId, {})
+      .then(response => {
+        res.send(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
     async getCryptoQuoteHistory(req, res) {
-      console.log(req.query.coinId)
-      console.log(req.query)
       await CoinGeckoClient.coins.fetchMarketChart(req.query.coinId,{
         vs_currency: req.query.vs_currency,
         days: req.query.days

@@ -4,6 +4,7 @@ import Homepage from '@/views/Homepage'
 import Register from '@/components/Register'
 import Login from '@/views/Login'
 import Mainpage from '@/views/Mainpage'
+import CoinInformation from '@/views/CoinInformation'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/main',
       name: 'Mainpage',
       component: Mainpage
+    },
+    {
+      path: '/coin/:id',
+      name: 'CoinInformation',
+      component: CoinInformation
     }
   ]
 })

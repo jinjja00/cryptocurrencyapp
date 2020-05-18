@@ -8,4 +8,5 @@ module.exports = (app) => {
     app.get('/getcrypto', CryptoController.getCrypto)
     app.get('/getcryptoquote', CryptoController.getCryptoQuoteHistory)
     app.get('/getcryptoeventincoming', CryptoController.getCryptoEventsIncoming)
+    app.get('/getcoininformation',CryptoController.getCoinInformation)
 }

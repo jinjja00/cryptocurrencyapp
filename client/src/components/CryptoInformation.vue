@@ -9,15 +9,17 @@
                     :hide-default-footer="true"
                     dark>
                     <template slot="item" slot-scope="props">
-                      <tr @click="handleClick(props.item)">
-                        <td nowrape="true" style="text-transform: uppercase">{{ props.item.symbol }}</td>
-                        <td nowrape="true">
-                            <v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.current_price) }} $</v-chip>
-                        </td>
-                        <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</td>
-                        <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
-                        <td><v-sparkline color="white" :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
-                      </tr>
+                        <router-link tag='tr' :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
+                                <td nowrape="true" style="text-transform: uppercase">{{ props.item.symbol }}</td>
+                                <td nowrape="true">
+                                    <v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.current_price) }} $</v-chip>
+                                </td>
+                                <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %</td>
+                                <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</td>
+                                <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</td>
+                                <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
+                                <td><v-sparkline color="white" :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
+                        </router-link>
                     </template>
                   </v-data-table>
                 <v-card class="mr-5" v-if="!isObjectEmpty(cryptoSelected)">
@@ -56,7 +58,13 @@
                     value: 'current_price'
                 },
                 {
+                    text: 'Percent (1h)'
+                },
+                {
                     text: 'Percent (24h)'
+                },
+                {
+                    text: 'Percent (7d)'
                 },
                 {
                     text: 'Last Updated',
