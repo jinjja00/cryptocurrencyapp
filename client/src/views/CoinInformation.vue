@@ -30,9 +30,9 @@
             }
         },
         beforeCreate() {
-            store.dispatch('crypto/fetchCoinInformation', this.$route.params.id)
         },
-        mounted () {
+        async mounted () {
+            await this.$store.dispatch('crypto/fetchCoinInformation', this.$route.params.id)
             this.currentCoinInformation = this.$store.state.crypto.coinInformation
             console.log(this.currentCoinInformation)
         },
