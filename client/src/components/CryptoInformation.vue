@@ -32,6 +32,7 @@
 
 <script>
     import { mapState } from "vuex"
+    import { roundDecimal } from '@/plugins/roundDecimal.js'
     import store from  '@/store/store'
 
     export default {
@@ -81,9 +82,6 @@
           store.dispatch('crypto/fetchCrypto')
         },
         methods: {
-            roundDecimal (num) {
-                return parseFloat(num).toFixed(2)
-            },
             handleClick (cryptoRow) {
                 if(!this.isObjectEmpty(this.cryptoSelected)) {
                     this.cryptoSelected = {}
@@ -104,8 +102,8 @@
                     }
                 }
                 return true
-            }
-            
+            },
+            roundDecimal  
         },
         computed: {
             ...mapState(['crypto'])
