@@ -41,13 +41,12 @@ const actions = {
             commit('setCoinInformation', coin)
         })
     },
-    fetchCryptoQuoteHistory({commit}, payload) {
-        console.log(payload)
+    fetchCryptoQuoteHistory({commit}, id) {
         return Api().get('getcryptoquote', {
             params: {
-                coinId:payload.id,
-                vs_currency:'usd',
-                days:'7'
+                coinId: id,
+                vs_currency: 'usd',
+                days: '7'
             }
         })
         .then(response => response.data)

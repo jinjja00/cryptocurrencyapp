@@ -67,18 +67,33 @@
                 </v-col>
             </v-row>
         </v-container>
+        <v-container fluid>
+            <v-row justify="center">
+                 <apexchart v-if="options.series" width="500" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
+            </v-row>
+        </v-container>
     </div>
 </template>
 
 <script>
     import { mapState } from "vuex"
     import store from  '@/store/store'
+    import moment from "moment"
     import { roundDecimal } from '@/plugins/roundDecimal.js'
 
     export default {
         data () {
             return {
-                currentCoinInformation: {}
+                currentCoinInformation: {},
+                 options: {
+                    chart: {
+                        id: 'vuechart-example'
+                    },
+                    xaxis: {
+                        type: 'datetime'
+                    },
+                    series: []
+                },
             }
         },
         beforeCreate() {
@@ -86,10 +101,21 @@
         async mounted () {
             await this.$store.dispatch('crypto/fetchCoinInformation', this.$route.params.id)
             this.currentCoinInformation = this.$store.state.crypto.coinInformation
-            console.log(this.currentCoinInformation)
+
+            await this.$store.dispatch('crypto/fetchCryptoQuoteHistory', this.$route.params.id) 
+            
+            this.$refs.apexchart.updateSeries([{
+                data: this.filterPriceQuote()
+            }])
         },
         methods : {
-            roundDecimal
+            roundDecimal,
+            filterPriceQuote () {
+                 return this.$store.state.crypto.cryptoQuotePriceHistory.prices.map(quote => [
+                    quote[0], 
+                    Math.round(quote[1])
+                ])
+            }
         },
         computed: {
             ...mapState(['crypto'])
