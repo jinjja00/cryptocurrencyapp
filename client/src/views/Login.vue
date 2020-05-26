@@ -14,6 +14,8 @@
 
 <script>
     import AuthentificationService from '@/services/AuthenticationService'
+    import store from  '@/store/store'
+
     export default {
         data () {
             return {
@@ -30,12 +32,12 @@
                         password: this.password
                    })
             
-                   this.$store.dispatch('setToken', response.data.token)
-                   this.$store.dispatch('setUser', response.data.user)
-                   if (this.$store.state.isUserLoggedin) {
+                   this.$store.dispatch('user/setToken', response.data.token)
+                   this.$store.dispatch('user/setUser', response.data.user)
+                   if (this.$store.state.user.isUserLoggedin) {
                        this.$router.push('/main')
                    }
-                   console.log(this.$store.state.isUserLoggedin)
+                   console.log(this.$store.state.user.isUserLoggedin)
                 } catch (error) {
                     this.error = error.response.data.error
                 }

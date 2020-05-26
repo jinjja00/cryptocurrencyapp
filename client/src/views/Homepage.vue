@@ -1,14 +1,5 @@
 <template>
     <div>
-        <div>
-            <v-app-bar
-              dark
-              prominent>
-                <v-btn icon>
-                  <v-icon>mdi-account</v-icon>
-                </v-btn>
-            </v-app-bar>
-        </div>
         <header class="background">
           <div class="wave-container">
               <h1>Your crypto news!</h1>

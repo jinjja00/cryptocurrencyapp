@@ -77,7 +77,6 @@
 
 <script>
     import { mapState } from "vuex"
-    import store from  '@/store/store'
     import moment from "moment"
     import { roundDecimal } from '@/plugins/roundDecimal.js'
 
