@@ -72,6 +72,7 @@
                  <apexchart v-if="options.series" width="500" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
             </v-row>
         </v-container>
+        <footercrypto/>
     </div>
 </template>
 
@@ -79,8 +80,12 @@
     import { mapState } from "vuex"
     import moment from "moment"
     import { roundDecimal } from '@/plugins/roundDecimal.js'
+    import footercrypto from '@/components/CryptoFooter'
 
     export default {
+        components: {
+            footercrypto
+        },
         data () {
             return {
                 currentCoinInformation: {},

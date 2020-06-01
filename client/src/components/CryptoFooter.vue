@@ -1,6 +1,6 @@
 <template>
     <div>
-         <v-footer dark padless>
+         <v-footer dark padless absolute>
           <v-card
             flat
             tile
