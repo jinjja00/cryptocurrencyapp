@@ -17,8 +17,6 @@
 </template>
 
 <script>
-    import AuthentificationService from '@/services/AuthenticationService'
-    import store from  '@/store/store'
     import footercrypto from '@/components/CryptoFooter'
 
     export default {
@@ -33,22 +31,16 @@
             footercrypto
         },
         methods: {
-            async login () {
-                try {
-                   const response = await AuthentificationService.login({
-                        email: this.email,
-                        password: this.password
-                   })
-            
-                   this.$store.dispatch('user/setToken', response.data.token)
-                   this.$store.dispatch('user/setUser', response.data.user)
-
-                   if (this.$store.state.user.isUserLoggedin) {
-                       this.$router.push('/main')
-                   }
-                } catch (error) {
-                    this.error = error.response.data.error
+            login () {
+                let payload = {
+                    email: this.email,
+                    password: this.password
                 }
+
+                this.$store.dispatch('user/loginUser', payload).then(() => {
+                    this.$router.push('/main')
+                })
+                
             }
         }
     }

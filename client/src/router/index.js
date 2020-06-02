@@ -24,12 +24,13 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
     },
     {
       path: '/main',
       name: 'Mainpage',
-      component: Mainpage
+      component: Mainpage,
+      meta: { requiresAuth: true }
     },
     {
       path: '/coins',

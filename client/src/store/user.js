@@ -1,17 +1,18 @@
+import Api from '@/services/Api'
 
 const state = {
+    localStorageToken: localStorage.getItem('user-token') || '',
     token: null,
     user: null,
-    isUserLoggedin: false,
 }
 
 const mutations = {
     setToken(state, token) {
         state.token = token
         if (token) {
-            state.isUserLoggedin = true
+            localStorage.setItem('user-token', token)
         } else {
-            state.isUserLoggedin = false
+            localStorage.removeItem('user-token')
         }
     },
     setUser(state, token) {
@@ -28,11 +29,25 @@ const actions = {
     },
     setUser({commit}, user) {
         commit('setUser', user)
+    },
+    loginUser({commit}, payload) {
+        return Api().post('login', payload)
+        .then(response => {
+            commit('setUser', response.data.user)
+            commit('setToken', response.data.token)
+            Api().defaults.headers.common['Authorization'] = response.data.token
+        })
+    },
+    logoutUser({commit, dispatch})  {
+        localStorage.removeItem('user-token')
+        commit('setUser', null)
+        commit('setToken', null)
+        delete  Api().defaults.headers.common['Authorization']
     }
 }
 
 const getters = {
-    
+    isAuthenticated: state => !!state.localStorageToken,
 }
 
 export default {

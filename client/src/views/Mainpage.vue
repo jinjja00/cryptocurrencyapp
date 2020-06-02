@@ -2,7 +2,7 @@
   <div>
        <div>
             <v-toolbar>
-                <v-btn  icon v-if="$store.state.user.isUserLoggedin" @click="logout">
+                <v-btn  icon  @click="logout" v-if="auth">
                    <v-icon left>mdi-logout</v-icon>
                 </v-btn>
                   <v-btn icon  :to="{name: 'Coins'}">
@@ -15,13 +15,17 @@
 
 <script>
 export default {
+  computed: {
+    auth() {
+      return this.$store.getters['user/isAuthenticated']
+    }
+  },
   methods: {
     logout () {
-      this.$store.dispatch('user/setToken', null)
-      this.$store.dispatch('user/setUser', null)
-      this.$router.push({
-        name: 'Homepage'
+      this.$store.dispatch('user/logoutUser').then(()=>{
+         this.$router.push('/')
       })
+
     }
   }
 }

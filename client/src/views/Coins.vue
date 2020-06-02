@@ -1,6 +1,6 @@
 <template>
     <div>
-        This will be my coin lists 
+        Coins list
     </div>
 </template>
 
