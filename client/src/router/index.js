@@ -29,8 +29,7 @@ export default new Router({
     {
       path: '/main',
       name: 'Mainpage',
-      component: Mainpage,
-      meta: { requiresAuth: true }
+      component: Mainpage
     },
     {
       path: '/coins',

@@ -37,10 +37,7 @@
                     password: this.password
                 }
 
-                this.$store.dispatch('user/loginUser', payload).then(() => {
-                    this.$router.push('/main')
-                })
-                
+                this.$store.dispatch('user/loginUser', payload)
             }
         }
     }

@@ -13,26 +13,6 @@ Vue.config.productionTip = false
 
 sync(store, router)
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!store.getters['user/isAuthenticated']) {
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath }
-      })
-    } else {
-      next()
-    }
-  } else if (store.getters['user/isAuthenticated']) {
-    next('/main') // make sure to always call next()!
-  }
-  else {
-    next()
-  }
-})
-
 Vue.component('apexchart', VueApexCharts)
 Vue.use(require('vue-moment'))
 /* eslint-disable no-new */
