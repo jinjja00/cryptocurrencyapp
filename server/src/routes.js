@@ -1,5 +1,6 @@
 const AuthenticationController =  require('./controllers/AuthenticationController')
 const CryptoController = require('./controllers/CryptoController')
+const UserController = require('./controllers/UserController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 
 module.exports = (app) => {
@@ -9,4 +10,5 @@ module.exports = (app) => {
     app.get('/getcryptoquote', CryptoController.getCryptoQuoteHistory)
     app.get('/getcryptoeventincoming', CryptoController.getCryptoEventsIncoming)
     app.get('/getcoininformation',CryptoController.getCoinInformation)
+    app.get('/getuserfavoritescoins',UserController.getUserFavoriteCrypto)
 }

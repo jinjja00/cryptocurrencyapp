@@ -7,6 +7,7 @@ const state = {
     localStorageToken: localStorage.getItem('user-token') || null,
     token: null,
     user: null,
+    favoriteCrypto: []
 }
 
 const mutations = {
@@ -14,11 +15,14 @@ const mutations = {
         state.localStorageToken = token
         state.token = token
     },
-    setUser(state, token) {
-        state.user = token
+    setUser(state, user) {
+        state.user = user
     },
     setCrypto(state,crypto) {
         state.crypto = crypto
+    },
+    setFavoritecrypto(state, crypto) {
+        state.favoriteCrypto = crypto
     }
 }
 
@@ -28,6 +32,18 @@ const actions = {
     },
     setUser({commit}, user) {
         commit('setUser', user)
+    },
+    setFavoriteCrypto({commit}, token) {
+        if(state.user) {
+            return Api().get('getuserfavoritescoins', {
+                params: {
+                    userId: state.user.id
+                }
+            })
+            .then(response =>{
+                console.log(response)
+            })
+        }
     },
     loginUser({commit}, payload) {
         return Api().post('login', payload)
