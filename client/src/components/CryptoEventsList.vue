@@ -1,27 +1,35 @@
 <template>
     <div>
-        <v-container>
-            <h2>Upcoming Events</h2>
-            <v-card  class="mx-auto my-12" max-width="374" v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index">
-            <v-img
-                height="250"
-                :src="event.screenshot"/>
+        <v-container class="mb-12">
+            <h1 align="center">Upcoming Events</h1>
+            <v-row>
+                <v-col v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index" :col="index">
+                    <v-card
+                        dark>
+                        <div class="d-flex flex-no-wrap justify-space-between">
+                            <div>
+                                <v-card-title
+                                class="headline"
+                                v-text="event.title"
+                                ></v-card-title>
 
-                <v-card-title>{{event.title}}</v-card-title>
-                <v-card-text>
-                <div class="my-4 subtitle-1">{{event.start_date}} to {{event.end_date}}</div>
-                <div>{{event.description.substring(0,200)+'...'}}</div>
-                </v-card-text>
-                <v-card-actions>
-                <v-btn
-                    target="_blank"
-                    :href="event.website"
-                    text
-                    color="deep-purple accent-4">
-                    Read more..
-                </v-btn>
-                </v-card-actions>
-            </v-card>
+                                <v-card-subtitle><div>{{event.description.substring(0,200)+'...'}}</div></v-card-subtitle>
+                                 <v-card-actions>
+                                    <v-btn :href="event.website" target="_blank" text>Read more..</v-btn>
+                                </v-card-actions>
+                            </div>
+
+                            <v-avatar
+                                class="ma-3"
+                                size="125"
+                                tile
+                            >
+                                <v-img :src="event.screenshot"></v-img>
+                            </v-avatar>
+                        </div>
+                    </v-card>
+                </v-col>
+            </v-row>
        </v-container>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-container>
+        <v-container class="mb-12">
             <v-row justify="center">
                 <v-data-table
                     :headers="headers"

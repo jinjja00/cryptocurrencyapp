@@ -1,8 +1,10 @@
 <template>
     <div>
+        <loading-page :loading="loading"/>
         <v-container fluid class="background-image"> 
             <v-row justify="center" align="center" style="height:900px;">
                 <v-col cols="8" md="4">
+                    <v-alert dense v-if="error" type="error" v-html="error"/>
                     <v-form>
                         <v-text-field dark color="white" label="Email" v-model="email"/>
                         <v-text-field dark color="white" label="Password" v-model="password"/>
@@ -18,26 +20,39 @@
 
 <script>
     import footercrypto from '@/components/CryptoFooter'
+    import loadingPage from '@/components/Loading'
 
     export default {
         data () {
             return {
                 email: '',
                 password: '',
-                error: null
+                error: null,
+                loading: false
             }
         },
+        mounted () {
+
+        },
         components: {
+            loadingPage,
             footercrypto
         },
         methods: {
-            login () {
+            async login () {
+                this.loading = true
+
                 let payload = {
                     email: this.email,
                     password: this.password
                 }
-
-                this.$store.dispatch('user/loginUser', payload)
+                try {
+                    await this.$store.dispatch('user/loginUser', payload)
+               
+                } catch (error) {
+                    this.loading = false
+                    this.error = error.response.data.error
+                }
             }
         }
     }

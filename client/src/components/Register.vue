@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1> Register</h1>
+        <v-alert v-if="error" type="error" v-html="error"/>
          <v-text-field
             label="firstname"
             v-model="firstname"
@@ -16,10 +17,6 @@
          <v-text-field
             label="Password"
             v-model="password"
-        />
-        <br>
-        <div class="error"
-            v-html="error"
         />
         <br>
         <button @click="register">Register</button>
@@ -60,7 +57,5 @@ export default  {
 </script>
 
 <style  scoped>
- .error {
-     color:red
- }
+
 </style>

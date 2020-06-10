@@ -1,6 +1,7 @@
 <template>
     <div>
         <header class="background">
+          <nav-bar></nav-bar>
           <div class="wave-container">
               <h1>Your crypto news!</h1>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -8,29 +9,31 @@
               </svg>
           </div>
         </header>
-        <v-container fluid class="pa-0">
+        <v-container fluid class="pa-0 ma-0">
             <div class="wave-container">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
               </svg>
             </div>
-            <cryptoinformation/>
+            <cryptoeventslist/>
         </v-container>
-        <cryptoeventslist/>
+        <cryptoinformation/>
         <footercrypto/>
     </div>
 </template>
 
 <script>
+      import navBar from '@/components/NavBar'
       import cryptoinformation from '@/components/CryptoInformation.vue'
-      import footercrypto from '@/components/CryptoFooter.vue'
       import cryptoeventslist from '@/components/CryptoEventsList.vue'
-
+      import footercrypto from '@/components/CryptoFooter.vue'
+  
       export default {
           components: {
+            navBar,
             cryptoinformation,
             cryptoeventslist,
-            footercrypto
+            footercrypto,
           },
           data () {
             return {
