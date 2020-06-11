@@ -3,7 +3,7 @@
         <v-container class="mb-12">
             <h1 align="center">Upcoming Events</h1>
             <v-row>
-                <v-col v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index" :col="index">
+                <v-col v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index" :cols="4">
                     <v-card
                         dark>
                         <div class="d-flex flex-no-wrap justify-space-between">
@@ -22,8 +22,7 @@
                             <v-avatar
                                 class="ma-3"
                                 size="125"
-                                tile
-                            >
+                                tile>
                                 <v-img :src="event.screenshot"></v-img>
                             </v-avatar>
                         </div>
@@ -48,5 +47,8 @@
 </script>
 
 <style scoped>
-
+     h1 {
+        font-size: 4rem;
+        text-shadow: 2px 2px #A9A9A9
+    }
 </style>

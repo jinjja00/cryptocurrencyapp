@@ -6,6 +6,7 @@
             <ul class="main-nav">
                 <li>
                     <v-btn rounded color="#CDCDCD" class="nav-links" to="/login">Login</v-btn>
+                     <v-btn rounded color="#CDCDCD" class="nav-links" to="/register">Register</v-btn>
                 </li>
             </ul>
         </nav>
