@@ -1,5 +1,3 @@
-const config  = require('../config/config')
-const rp = require('request-promise')
 const CoinGecko = require('coingecko-api')
 
 const CoinGeckoClient = new CoinGecko()

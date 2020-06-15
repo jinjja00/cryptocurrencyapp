@@ -17,7 +17,7 @@ function hashPassword (user, options) {
 }
 
 module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('User', {
+    const Users = sequelize.define('Users', {
         firstName: DataTypes.STRING,
         lastName: DataTypes.STRING,
         email: {
@@ -30,14 +30,14 @@ module.exports = (sequelize, DataTypes) => {
             beforeSave: hashPassword
         }
     })
-    User.associate = function(models) {
-        User.belongsToMany(models.Coin, {foreignKey: 'UserID', through: 'CoinsUserRelations'})
+    Users.associate = (models) => {
+        Users.belongsToMany(models.Coins, {foreignKey: 'UserID', through: 'CoinsUser'})
     }
 
-    User.prototype.comparePassword = function (userPassword) {
+    Users.prototype.comparePassword = function (userPassword) {
         return bcrypt.compareAsync(userPassword, this.password)
     }
 
-    return User
+    return Users
 }
     
