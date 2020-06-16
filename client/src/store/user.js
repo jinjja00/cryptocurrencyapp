@@ -40,9 +40,13 @@ const actions = {
                     userId: state.user.id
                 }
             })
-            .then(response =>{
-                console.log(response)
+            .then(response => response.data.coins)
+            .then(cryptoFav => {
+                commit('setFavoritecrypto', cryptoFav)
             })
+        }
+        else{
+            console.log("there's not user state")
         }
     },
     loginUser({commit}, payload) {

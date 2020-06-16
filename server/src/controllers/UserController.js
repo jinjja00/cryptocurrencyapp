@@ -4,19 +4,21 @@ module.exports = {
     async getUserFavoriteCrypto (req, res) {
         try {
             const coins = await db.Users.findOne({
-                raw:true,
                 where: {
                     id : req.query.userId
                 },
-                attribute:['id'],
+                attributes:['id'],
                 include: [{
                     model: db.Coins,
-                    attribute:['cryptoName'],
+                    attributes:['cryptoName'],
+                    through: {attributes:[]} 
                 }]
             })
-            console.log(coins)
-            res.send({
-                coins: coins
+            .then(response => response.Coins)
+            .then(data => {
+                res.send({
+                    coins: data
+                })
             })
         } catch (err) {
             console.log(err)
