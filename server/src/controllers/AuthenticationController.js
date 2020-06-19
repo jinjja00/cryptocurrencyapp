@@ -46,12 +46,18 @@ module.exports = {
                     error: 'The login information was incorrect'
                 })
             }
-            const userJson = user.toJSON()
+
+            const userCo = {
+                id: user.id,
+                email: user.email
+            }
+
             res.send({
-                user: userJson,
-                token: jwtSignUser(userJson)
+                user: userCo,
+                token: jwtSignUser(userCo)
             })
         } catch (err) {
+            console.log(err)
             res.status(403).send({
                 error: 'An error has occured trying to log in'
             })

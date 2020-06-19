@@ -2,13 +2,14 @@ const AuthenticationController =  require('./controllers/AuthenticationControlle
 const CryptoController = require('./controllers/CryptoController')
 const UserController = require('./controllers/UserController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
+const AuthCurrentUser = require('./middleware/auth')
 
 module.exports = (app) => {
-    app.post('/register',AuthenticationControllerPolicy.register, AuthenticationController.register),
+    app.post('/register', AuthenticationControllerPolicy.register, AuthenticationController.register),
     app.post('/login', AuthenticationController.login),
     app.get('/getcrypto', CryptoController.getCrypto)
     app.get('/getcryptoquote', CryptoController.getCryptoQuoteHistory)
     app.get('/getcryptoeventincoming', CryptoController.getCryptoEventsIncoming)
-    app.get('/getcoininformation',CryptoController.getCoinInformation)
-    app.get('/getuserfavoritescoins',UserController.getUserFavoriteCrypto)
+    app.get('/getcoininformation', CryptoController.getCoinInformation)
+    app.get('/getuserfavoritescoins',AuthCurrentUser.getCurrentUserId, UserController.getUserFavoriteCrypto)
 }

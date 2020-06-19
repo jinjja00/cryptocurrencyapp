@@ -5,7 +5,7 @@ module.exports = {
         try {
             const coins = await db.Users.findOne({
                 where: {
-                    id : req.query.userId
+                    id : req.user.id
                 },
                 attributes:['id'],
                 include: [{

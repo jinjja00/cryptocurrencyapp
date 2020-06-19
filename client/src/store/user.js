@@ -18,9 +18,6 @@ const mutations = {
     setUser(state, user) {
         state.user = user
     },
-    setCrypto(state,crypto) {
-        state.crypto = crypto
-    },
     setFavoritecrypto(state, crypto) {
         state.favoriteCrypto = crypto
     }
@@ -34,20 +31,16 @@ const actions = {
         commit('setUser', user)
     },
     setFavoriteCrypto({commit}, token) {
-        if(state.user) {
             return Api().get('getuserfavoritescoins', {
                 params: {
-                    userId: state.user.id
+                    token: state.localStorageToken
                 }
             })
             .then(response => response.data.coins)
             .then(cryptoFav => {
                 commit('setFavoritecrypto', cryptoFav)
             })
-        }
-        else{
-            console.log("there's not user state")
-        }
+        
     },
     loginUser({commit}, payload) {
         return Api().post('login', payload)
