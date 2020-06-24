@@ -15,28 +15,49 @@
                 <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
               </svg>
             </div>
-            <cryptoeventslist/>
+            <v-row>
+          <v-col class="col-md-4 ml-6">
+            <h2>Look at your favorite cryptocurrencies!</h2>
+          </v-col>
+          <v-col class="col-md-2 offset-md-3">
+            <v-card dark justify="center"> 
+                <v-list>
+                    <v-list-item v-for="coin in coins" :key="coin.title">
+                       <v-list-item-content>
+                        <v-list-item-title v-text="coin.title"></v-list-item-title>
+                      </v-list-item-content>
+
+                      <v-list-item-avatar>
+                        <v-img :src="coin.logo"></v-img>
+                      </v-list-item-avatar>
+                    </v-list-item>
+                </v-list>
+            </v-card>
+          </v-col>
+        </v-row>
         </v-container>
-        <cryptoinformation/>
         <footercrypto/>
     </div>
 </template>
 
 <script>
       import navBar from '@/components/NavBar'
-      import cryptoinformation from '@/components/CryptoInformation.vue'
-      import cryptoeventslist from '@/components/CryptoEventsList.vue'
       import footercrypto from '@/components/CryptoFooter.vue'
   
       export default {
           components: {
             navBar,
-            cryptoinformation,
-            cryptoeventslist,
             footercrypto,
           },
           data () {
             return {
+              coins: [
+                { title: 'Bitcoin', logo:  require('@/assets/cryptologo/btc.png')  },
+                { title: 'Ethereum', logo: require('@/assets/cryptologo/eth.png')  },
+                { title: 'Tether', logo: require('@/assets/cryptologo/tet.png')  },
+                { title: 'XRP', logo: require('@/assets/cryptologo/xrp.svg')  },
+                { title: 'Bitcoin Cash', logo: require('@/assets/cryptologo/btcash.png') },
+              ]
             }
           },
           mounted : function ()  {

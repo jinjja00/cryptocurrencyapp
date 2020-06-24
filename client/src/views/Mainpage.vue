@@ -10,28 +10,35 @@
                 </v-btn>
             </v-toolbar>
         </div>
-          <v-container fluid class="fill-height">
+          <v-container fluid>
               <v-row>
-                <v-simple-table dark>
-                  <template v-slot:default>
-                    <thead>
-                      <tr>
-                        <th class="text-left">Name</th>
-                        <th class="text-left">Price</th>
-                         <th class="text-left">High 24h</th>
-                        <th class="text-left">Change 24h</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="coin in filterFavoritesCoins" :key="coin.id">
-                          <td>{{ coin.name }}</td>
-                          <td>{{ coin.current_price }}</td>
-                          <td>{{ coin.high_24h }}</td>
-                          <td><v-chip color="grey darken-1" dark>{{ roundDecimal(coin.price_change_percentage_24h) }}%</v-chip></td>
-                      </tr>
-                    </tbody>
-                  </template>
-                </v-simple-table>
+                <v-row justify="center">
+                  <v-col cols="12" md="6">
+                    <v-simple-table dark>
+                      <template v-slot:default>
+                        <thead>
+                          <tr>
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Price</th>
+                            <th class="text-left">High 24h</th>
+                            <th class="text-left">Change 24h</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="coin in filterFavoritesCoins" :key="coin.id">
+                              <td>{{ coin.name }}</td>
+                              <td>{{ coin.current_price }}</td>
+                              <td>{{ coin.high_24h }}</td>
+                              <td><v-chip color="grey darken-1" dark>{{ roundDecimal(coin.price_change_percentage_24h) }}%</v-chip></td>
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
+                  </v-col>
+                </v-row>
+                <v-col cols="4" md="2">
+                  <cryptoeventslist/>
+                </v-col>
               </v-row>
           </v-container>
   </div>
@@ -39,6 +46,7 @@
 
 <script>
   import { roundDecimal } from '@/plugins/roundDecimal.js'
+  import cryptoeventslist from '@/components/CryptoEventsList.vue'
   export default {
     data(){
       return {
@@ -46,6 +54,9 @@
         favoriteCoins: [],
         filteredFavoriteCoins: []
       }
+    },
+    components: {
+      cryptoeventslist
     },
     async mounted () {
       await this.$store.dispatch('crypto/fetchCrypto')

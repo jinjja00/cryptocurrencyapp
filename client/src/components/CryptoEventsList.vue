@@ -1,35 +1,14 @@
 <template>
     <div>
-        <v-container class="mb-12">
-            <h1 align="center">Upcoming Events</h1>
-            <v-row>
-                <v-col v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index" :cols="4">
-                    <v-card
-                        dark>
-                        <div class="d-flex flex-no-wrap justify-space-between">
-                            <div>
-                                <v-card-title
-                                class="headline"
-                                v-text="event.title"
-                                ></v-card-title>
-
-                                <v-card-subtitle><div>{{event.description.substring(0,200)+'...'}}</div></v-card-subtitle>
-                                 <v-card-actions>
-                                    <v-btn :href="event.website" target="_blank" text>Read more..</v-btn>
-                                </v-card-actions>
-                            </div>
-
-                            <v-avatar
-                                class="ma-3"
-                                size="125"
-                                tile>
-                                <v-img :src="event.screenshot"></v-img>
-                            </v-avatar>
-                        </div>
-                    </v-card>
-                </v-col>
-            </v-row>
-       </v-container>
+        <v-card dark justify="center">
+            <v-card-title class="headline">Upcoming Events</v-card-title>
+            <v-list-item v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index" :href="event.website" target=”_blank”>
+                <v-list-item-content>
+                    <v-list-item-title v-text="event.title">Single-line item</v-list-item-title>
+                    <v-list-item-subtitle>{{event.start_date}} &bull; {{event.end_date}} </v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
+        </v-card>
     </div>
 </template>
 
