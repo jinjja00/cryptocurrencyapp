@@ -25,33 +25,38 @@
                     </v-col>
                 </v-row>
             </v-row>
-            <v-row class="black" justify="space-around" align="center">
-                <v-col>
-                    <v-card max-width="300"> 
-                            <v-list>
-                                <v-list-item v-for="coin in coins" :key="coin.title">
-                                <v-list-item-content>
-                                    <v-list-item-title v-text="coin.title"></v-list-item-title>
-                                </v-list-item-content>
+            <div class="wave-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                        <path fill="#000" fill-opacity="1" d="M0,160L34.3,186.7C68.6,213,137,267,206,288C274.3,309,343,299,411,277.3C480,256,549,224,617,218.7C685.7,213,754,235,823,218.7C891.4,203,960,149,1029,122.7C1097.1,96,1166,96,1234,122.7C1302.9,149,1371,203,1406,229.3L1440,256L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path>
+                    </svg>
+                    <v-row>
+                        <v-col justify="end" >
+                            <v-card max-width="300"> 
+                                    <v-list>
+                                        <v-list-item v-for="coin in coins" :key="coin.title">
+                                        <v-list-item-content>
+                                            <v-list-item-title v-text="coin.title"></v-list-item-title>
+                                        </v-list-item-content>
 
-                                <v-list-item-avatar>
-                                    <v-img :src="coin.logo"></v-img>
-                                </v-list-item-avatar>
-                                </v-list-item>
-                            </v-list>
-                        <v-list-item-subtitle>
-                            <v-btn
-                                block 
-                                outlined
-                                color="black"
-                                :to="{name: 'Coins'}"
-                            >
-                                Browse more..
-                            </v-btn>
-                        </v-list-item-subtitle>
-                    </v-card>
-                </v-col>  
-            </v-row>
+                                        <v-list-item-avatar>
+                                            <v-img :src="coin.logo"></v-img>
+                                        </v-list-item-avatar>
+                                        </v-list-item>
+                                    </v-list>
+                                <v-list-item-subtitle>
+                                    <v-btn
+                                        block 
+                                        outlined
+                                        color="black"
+                                        :to="{name: 'Coins'}"
+                                    >
+                                        Browse more..
+                                    </v-btn>
+                                </v-list-item-subtitle>
+                            </v-card>
+                        </v-col>  
+                     </v-row>
+                </div>
         </v-container>
         <footercrypto/>
     </div>

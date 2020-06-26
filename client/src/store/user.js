@@ -42,6 +42,14 @@ const actions = {
             })
         
     },
+    addFavoriteCrypto({commit}, payload) {
+        return Api().post('adduserfavoritecrypto', {
+            params : {
+                coinId: payload,
+                token: state.localStorageToken
+            }
+        })
+    },
     loginUser({commit}, payload) {
         return Api().post('login', payload)
         .then(response => {
