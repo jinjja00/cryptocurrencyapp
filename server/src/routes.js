@@ -11,5 +11,6 @@ module.exports = (app) => {
     app.get('/getcryptoquote', CryptoController.getCryptoQuoteHistory)
     app.get('/getcryptoeventincoming', CryptoController.getCryptoEventsIncoming)
     app.get('/getcoininformation', CryptoController.getCoinInformation)
-    app.get('/getuserfavoritescoins',AuthCurrentUser.getCurrentUserId, UserController.getUserFavoriteCrypto)
+    app.get('/getuserfavoritescoins', AuthCurrentUser.getCurrentUserId, UserController.getUserFavoriteCrypto)
+    app.post('/adduserfavoritecrypto', AuthCurrentUser.getUserWithHisFavoriteCrypto, UserController.addUserFavoriteCrypto)
 }
