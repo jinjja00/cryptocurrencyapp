@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
     Users.associate = (models) => {
         Users.belongsToMany(models.Coins, {foreignKey: 'UserID', through: 'CoinsUser'})
     }
+    Users.sync().then(() => {
+        Users.create({
+            firstName: "Engjell",
+            lastName: "Bislimi",
+            email: "engjellbislimi1@gmail.com",
+            password: "Bonjour00"
+        })
+    })
 
     Users.prototype.comparePassword = function (userPassword) {
         return bcrypt.compareAsync(userPassword, this.password)

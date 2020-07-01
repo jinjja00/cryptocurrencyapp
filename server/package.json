@@ -22,9 +22,11 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
     "request-promise": "^4.2.5",
     "sequelize": "^5.22.2",
     "sqlite": "^3.0.6"
-  }
+  },
+  "devDependencies": {}
 }
