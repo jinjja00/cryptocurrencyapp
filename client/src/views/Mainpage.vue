@@ -73,7 +73,7 @@
         const usersSet = this.favoriteCoins.reduce((set, { cryptoName }) => set.add(cryptoName), new Set)
 
         let  filteredFavoriteCoins = this.initialCoins.filter(({ id }) => usersSet.has(id))
-      console.log(filteredFavoriteCoins)
+
         return filteredFavoriteCoins
       }
     },
