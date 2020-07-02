@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
             firstName: "Engjell",
             lastName: "Bislimi",
             email: "engjellbislimi1@gmail.com",
-            password: "Bonjour00"
+            password: "testpassword"
         })
     })
 
