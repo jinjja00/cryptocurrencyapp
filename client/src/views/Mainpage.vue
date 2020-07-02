@@ -18,6 +18,7 @@
                       <template v-slot:default>
                         <thead>
                           <tr>
+                            <th></th>
                             <th class="text-left">Name</th>
                             <th class="text-left">Price</th>
                             <th class="text-left">High 24h</th>
@@ -26,6 +27,10 @@
                         </thead>
                         <tbody>
                           <tr v-for="coin in filterFavoritesCoins" :key="coin.id">
+                              <td> 
+                                <!--TODO remove favorite -->
+                                <v-icon color="yellow">mdi-star</v-icon>
+                              </td>
                               <td>{{ coin.name }}</td>
                               <td>{{ coin.current_price }}</td>
                               <td>{{ coin.high_24h }}</td>

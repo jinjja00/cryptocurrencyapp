@@ -69,6 +69,8 @@
 
                     this.$store.dispatch('user/setToken', response.data.token)
                     this.$store.dispatch('user/setUser', response.data.user)
+
+                    this.$router.push('/main')
                 } catch(error) {
                     this.loading = false
                     this.error = error.response.data.error

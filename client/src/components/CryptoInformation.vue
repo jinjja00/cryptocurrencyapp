@@ -4,7 +4,7 @@
             <v-row justify="center">
                 <v-data-table
                     :headers="headers"
-                    :items="crypto.cryptoNews"
+                    :items="initialCoins"
                     class="mr-5"
                     :hide-default-footer="true"
                     disable-sort
@@ -12,7 +12,7 @@
                     <template slot="item" slot-scope="props">
                         <tr>
                             <td v-if="auth">
-                                <v-icon @click="AddToFavorite(props.item.id)" color="grey lighten-1">mdi-star</v-icon>
+                                <v-icon @click="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
                             </td>
                             <router-link tag="tr" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
                                 <td  style="text-transform: uppercase">{{ props.item.symbol }}</td>
@@ -28,9 +28,6 @@
                         </tr>
                     </template>
                   </v-data-table>
-                <v-card class="mr-5" v-if="!isObjectEmpty(cryptoSelected)">
-                  <apexchart v-if="options.series" width="500" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
-                </v-card>
             </v-row>
           </v-container>
     </div>
@@ -44,7 +41,8 @@
     export default {
         data () {
             return {
-                cryptoSelected: {},
+                initialCoins: [],
+                favoriteCoins: [],
                 options: {
                     chart: {
                         id: 'vuechart-example'
@@ -88,35 +86,24 @@
                 ]
             }
         },
-         beforeCreate: function () {
-          store.dispatch('crypto/fetchCrypto')
+        async mounted () {
+            await this.$store.dispatch('crypto/fetchCrypto')
+            await this.$store.dispatch('user/setFavoriteCrypto')
+
+            this.initialCoins = this.$store.state.crypto.cryptoNews
+            this.favoriteCoins = this.$store.state.user.favoriteCrypto
         },
         methods: {
             AddToFavorite (coinId)  {
-                console.log(coinId)
+                if (!this.favoriteCoins.some(e => e.cryptoName === coinId)) {
+                    store.dispatch('user/addFavoriteCrypto', coinId)
 
-                 store.dispatch('user/addFavoriteCrypto', coinId) 
-            },
-            handleClick (cryptoRow) {
-                if(!this.isObjectEmpty(this.cryptoSelected)) {
-                    this.cryptoSelected = {}
+                    this.favoriteCoins.push({cryptoName: coinId})
                 }
-                this.cryptoSelected = {...cryptoRow}
-                
-                store.dispatch('crypto/fetchCryptoQuoteHistory', this.cryptoSelected) 
-            
-                this.$refs.apexchart.updateSeries([{
-                    data: this.$store.state.crypto.cryptoQuotePriceHistory.prices
-                }])
-                
+                return  
             },
-            isObjectEmpty(obj) {
-                for(var key in obj) {
-                    if(obj.hasOwnProperty(key)) {
-                        return false
-                    }
-                }
-                return true
+            favoriteUserCoins(coinId) {
+                return this.favoriteCoins.some(e => e.cryptoName === coinId) ? 'yellow' : 'grey lighten-1'
             },
             roundDecimal  
         },
