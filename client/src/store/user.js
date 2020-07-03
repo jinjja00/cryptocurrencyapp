@@ -50,6 +50,14 @@ const actions = {
             }
         })
     },
+    removeFavoriteCrypto({commit}, payload) {
+        return Api().post('removeuserfavoritecrypto', {
+            params : {
+                coinId: payload,
+                token: state.localStorageToken
+            }
+        })
+    },
     loginUser({commit}, payload) {
         return Api().post('login', payload)
         .then(response => {

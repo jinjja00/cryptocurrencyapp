@@ -18,11 +18,17 @@
                                 <td  style="text-transform: uppercase">{{ props.item.symbol }}</td>
                             </router-link>    
                             <td nowrape="true">
-                                <v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.current_price) }} $</v-chip>
+                                <v-chip color="grey darken-3" dark>{{ roundDecimal(props.item.current_price) }} $</v-chip>
                             </td>
-                            <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %</td>
-                            <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</td>
-                            <td nowrape="true">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</td>
+                            <td nowrape="true" :style="{color: (Math.sign(props.item.price_change_percentage_1h_in_currency) === 1 ? 'green' : 'red')}">
+                                {{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %
+                            </td>
+                            <td nowrape="true" :style="{color: (Math.sign(props.item.price_change_percentage_24h) === 1 ? 'green' : 'red')}">
+                                {{ roundDecimal(props.item.price_change_percentage_24h) }} %
+                            </td>
+                            <td nowrape="true" :style="{color: (Math.sign(props.item.price_change_percentage_7d_in_currency) === 1 ? 'green' : 'red')}">
+                                {{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %
+                            </td>
                             <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
                             <td><v-sparkline color="white" :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
                         </tr>
@@ -95,12 +101,17 @@
         },
         methods: {
             AddToFavorite (coinId)  {
-                if (!this.favoriteCoins.some(e => e.cryptoName === coinId)) {
+                const coinIndex = this.favoriteCoins.findIndex(e => e.cryptoName === coinId)
+
+                if (coinIndex === -1) {
                     store.dispatch('user/addFavoriteCrypto', coinId)
 
                     this.favoriteCoins.push({cryptoName: coinId})
+                } else {
+                    store.dispatch('user/removeFavoriteCrypto', coinId)
+                  
+                    this.favoriteCoins.splice(coinIndex, 1)
                 }
-                return  
             },
             favoriteUserCoins(coinId) {
                 return this.favoriteCoins.some(e => e.cryptoName === coinId) ? 'yellow' : 'grey lighten-1'
