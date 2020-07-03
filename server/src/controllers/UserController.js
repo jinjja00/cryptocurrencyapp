@@ -28,7 +28,6 @@ module.exports = {
         } 
     },
     async addUserFavoriteCrypto(req, res) {
-        console.log(req.userCrypto)
         try {
             const favoriteCoin = await db.Coins.findOne({
                 where: {
@@ -37,6 +36,26 @@ module.exports = {
                 attributes:['id']
             }).then(c => 
                 db.CoinsUser.create({ CoinID: c.id, UserID: req.userCrypto.user.id })
+            )
+        }
+        catch(err) {
+            console.log(err)
+        }
+    },
+    async removeUserFavoriteCrypto(req, res) {
+        try {
+            const favoriteCoin = await db.Coins.findOne({
+                where: {
+                    cryptoName: req.userCrypto.coin
+                },
+                attributes:['id']
+            }).then(c => 
+                db.CoinsUser.destroy({ 
+                    where: {
+                        CoinID : c.id,
+                        UserID : req.userCrypto.user.id 
+                    }
+                })
             )
         }
         catch(err) {
