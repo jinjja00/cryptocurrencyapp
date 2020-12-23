@@ -19,7 +19,7 @@
             <v-divider></v-divider>
 
             <v-card-text class="white--text">
-              {{ new Date().getFullYear() }} — <strong>Powered by CoinGecko API</strong>
+              {{ new Date().getFullYear() }} — Powered by CoinGecko API
             </v-card-text>
           </v-card>
        </v-footer>

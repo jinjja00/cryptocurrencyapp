@@ -3,7 +3,7 @@
         <v-container class="mb-12">
             <v-row justify="center">
                 <v-data-table
-                    :headers="headers"
+                    :headers="headerFiltered"
                     :items="initialCoins"
                     class="mr-5"
                     :hide-default-footer="true"
@@ -62,6 +62,7 @@
                     {
                         text: '#',
                         align: 'start',
+                        value: 'fav'
                     },
                     {
                         text: 'Name',
@@ -120,8 +121,16 @@
         },
         computed: {
             ...mapState(['crypto']),
-            auth() {
+            auth () {
                 return this.$store.getters['user/isAuthenticated']
+            },
+            headerFiltered() {
+                if (!this.auth) {
+                    let headerCopy = this.headers.slice(0)
+                    return headerCopy.filter(x => x.value !== "fav")
+                }
+
+                return this.headers
             }
         }, 
     }

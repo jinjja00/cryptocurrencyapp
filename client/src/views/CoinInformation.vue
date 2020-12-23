@@ -33,7 +33,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-container fluid>
+        <v-container class="pa-16">
             <v-row justify="center">
                  <v-col cols="4" md="2">
                     <h3 class="overline">Low 24h / High 24h</h3>
@@ -67,9 +67,10 @@
                 </v-col>
             </v-row>
         </v-container>
-        <v-container fluid>
+         <v-divider class="mx-16"></v-divider>
+        <v-container fluid class="pa-16">
             <v-row justify="center">
-                 <apexchart v-if="options.series" width="500" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
+                 <apexchart v-if="options.series" width="1000" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
             </v-row>
         </v-container>
         <footercrypto/>

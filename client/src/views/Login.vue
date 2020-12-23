@@ -4,7 +4,7 @@
         <v-container fluid class="background-image"> 
             <v-row justify="center" align="center" style="height:900px;">
                 <v-col cols="8" md="4">
-                    <v-alert dense v-if="error" type="error" v-html="error"/>
+                    <v-alert border="top" color="red lighten-2" dark v-if="error" type="error" v-html="error"/>
                     <v-form>
                         <v-text-field dark color="white" label="Email" v-model="email"/>
                         <v-text-field 
