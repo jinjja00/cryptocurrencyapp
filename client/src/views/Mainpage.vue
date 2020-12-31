@@ -8,6 +8,7 @@
                   <v-btn icon  :to="{name: 'Coins'}">
                    <v-icon left>mdi-feature-search</v-icon>
                 </v-btn>
+                <searchbycryptoname/>
             </v-toolbar>
         </div>
           <v-container fluid>
@@ -52,6 +53,7 @@
 <script>
   import { roundDecimal } from '@/plugins/roundDecimal.js'
   import cryptoeventslist from '@/components/CryptoEventsList.vue'
+  import searchbycryptoname from '@/components/CryptoSearchBar.vue'
   export default {
     data(){
       return {
@@ -61,7 +63,8 @@
       }
     },
     components: {
-      cryptoeventslist
+      cryptoeventslist,
+      searchbycryptoname
     },
     async mounted () {
       await this.$store.dispatch('crypto/fetchCrypto')
