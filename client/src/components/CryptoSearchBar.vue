@@ -39,13 +39,11 @@ export default {
     }),
     methods: {
         redirectToCoinPage (coin) {
-            if (/\s/.test(coin)) {
-                let redirectURL = coin.replace(/\s+/g, '-').toLowerCase()
-                if (redirectURL) {
-                    this.$router.push(encodeURI('/coin/'+ redirectURL)) 
-                }   
+            if (!/\s/.test(coin)) {
+              this.$router.push('/coin/'+ coin.toLowerCase()).catch(() => {});  
             }
-            this.$router.push('/coin/'+ coin.toLowerCase())
+            let redirectURL = coin.replace(/\s+/g, '-').toLowerCase()
+            this.$router.push(encodeURI('/coin/'+ redirectURL))     
         }
     },
     watch: {

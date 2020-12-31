@@ -1,14 +1,15 @@
 <template>
   <div>
        <div>
-            <v-toolbar>
-                <v-btn  icon  @click="logout" v-if="auth">
-                   <v-icon left>mdi-logout</v-icon>
-                </v-btn>
-                  <v-btn icon  :to="{name: 'Coins'}">
-                   <v-icon left>mdi-feature-search</v-icon>
-                </v-btn>
-                <searchbycryptoname/>
+            <v-toolbar dark>
+              <searchbycryptoname/>
+              <v-spacer></v-spacer>
+              <v-btn  icon  @click="logout" v-if="auth">
+                  <v-icon left>mdi-logout</v-icon>
+              </v-btn>
+                <v-btn icon  :to="{name: 'Coins'}">
+                  <v-icon left>mdi-feature-search</v-icon>
+              </v-btn>
             </v-toolbar>
         </div>
           <v-container fluid>
@@ -32,7 +33,9 @@
                                 <!--TODO remove favorite -->
                                 <v-icon color="yellow">mdi-star</v-icon>
                               </td>
-                              <td>{{ coin.name }}</td>
+                              <router-link tag="tr" :to="{ name: 'CoinInformation', params: { id: coin.name.toLowerCase() }}">
+                                <td>{{ coin.name }}</td>
+                              </router-link> 
                               <td>{{ coin.current_price }}</td>
                               <td>{{ coin.high_24h }}</td>
                               <td><v-chip color="grey darken-1" dark>{{ roundDecimal(coin.price_change_percentage_24h) }}%</v-chip></td>
