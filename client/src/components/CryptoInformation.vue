@@ -7,30 +7,32 @@
                     :items="initialCoins"
                     class="mr-5"
                     :hide-default-footer="true"
-                    disable-sort
-                    dark>
+                    disable-sort>
                     <template slot="item" slot-scope="props">
                         <tr>
                             <td v-if="auth">
                                 <v-icon @click="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
                             </td>
                             <router-link tag="tr" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
-                                <td  style="text-transform: uppercase">{{ props.item.symbol }}</td>
+                                <td style="inline-block;"> 
+                                    <v-img max-width="20" :src="props.item.image"/>
+                                    {{ props.item.name }}
+                                </td>
                             </router-link>    
                             <td nowrape="true">
-                                <v-chip color="grey darken-3" dark>{{ roundDecimal(props.item.current_price) }} $</v-chip>
+                                ${{ roundDecimal(props.item.current_price) }} 
                             </td>
-                            <td nowrape="true" :style="{color: (Math.sign(props.item.price_change_percentage_1h_in_currency) === 1 ? 'green' : 'red')}">
+                            <td nowrape="true" :style="getColor(props.item.price_change_percentage_1h_in_currency)">
                                 {{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %
                             </td>
-                            <td nowrape="true" :style="{color: (Math.sign(props.item.price_change_percentage_24h) === 1 ? 'green' : 'red')}">
+                            <td nowrape="true" :style="getColor(props.item.price_change_percentage_24h)">
                                 {{ roundDecimal(props.item.price_change_percentage_24h) }} %
                             </td>
-                            <td nowrape="true" :style="{color: (Math.sign(props.item.price_change_percentage_7d_in_currency) === 1 ? 'green' : 'red')}">
+                            <td nowrape="true" :style="getColor(props.item.price_change_percentage_7d_in_currency)">
                                 {{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %
                             </td>
                             <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
-                            <td><v-sparkline color="white" :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
+                            <td><v-sparkline color="black" :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
                         </tr>
                     </template>
                   </v-data-table>
@@ -67,7 +69,8 @@
                     {
                         text: 'Name',
                         align: 'start',
-                        value : 'symbol'
+                        value : 'symbol',
+                        width: "1%"
                     },
                     {
                         text: 'Price (USD)',
@@ -94,13 +97,17 @@
             }
         },
         async mounted () {
-            await this.$store.dispatch('crypto/fetchCrypto')
+            this.fetchCrypto()
             await this.$store.dispatch('user/setFavoriteCrypto')
 
             this.initialCoins = this.$store.state.crypto.cryptoNews
             this.favoriteCoins = this.$store.state.user.favoriteCrypto
         },
         methods: {
+            async fetchCrypto () {
+                await this.$store.dispatch('crypto/fetchCrypto')
+                //setTimeout(() => this.fetchCrypto(), 60 * 1000) 
+            },
             AddToFavorite (coinId)  {
                 const coinIndex = this.favoriteCoins.findIndex(e => e.cryptoName === coinId)
 
@@ -116,6 +123,9 @@
             },
             favoriteUserCoins(coinId) {
                 return this.favoriteCoins.some(e => e.cryptoName === coinId) ? 'yellow' : 'grey lighten-1'
+            },
+            getColor (num) {
+                return num > 0 ? "color:green" : "color:red";
             },
             roundDecimal  
         },
@@ -140,5 +150,4 @@
     tr:hover {
         background-color: transparent !important;
     }
-
 </style>
