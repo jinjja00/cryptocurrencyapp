@@ -15,23 +15,21 @@
                     <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
                 </svg>
             </div>
-            <v-row justify="space-around" align="center">
-                <v-col class="col-md-2 offset-md-2">
-                    <img svg-inline :src="require('@/assets/cryptologo/undraw_crypto.svg')" height="500" width="500"/>
-                </v-col>
-                <v-row>
-                    <v-col class="col-md-6 offset-md-4">
-                        <h2 class="text-uppercase font-size-custom">Follow the trend</h2>
-                    </v-col>
-                </v-row>
+            <v-row justify="center" align="center" no-gutters>
+                <v-col col="auto">
+                    <img class="logo-woman" svg-inline :src="require('@/assets/cryptologo/undraw_crypto.svg')" height="500" width="500"/>
+                </v-col> 
+                <v-col col="auto">
+                    <h2 class="text-uppercase font-size-custom text-center">Follow the trend</h2>
+                </v-col> 
             </v-row>
             <div class="wave-container lower-heading">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                         <path fill="#000" fill-opacity="1" d="M0,160L34.3,186.7C68.6,213,137,267,206,288C274.3,309,343,299,411,277.3C480,256,549,224,617,218.7C685.7,213,754,235,823,218.7C891.4,203,960,149,1029,122.7C1097.1,96,1166,96,1234,122.7C1302.9,149,1371,203,1406,229.3L1440,256L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path>
                     </svg>
-                    <v-row>
-                        <v-col justify="end" align="center" class="pa-6">
-                            <v-card max-width="300"> 
+                    <v-row justify="center" align="center" no-gutters>
+                        <v-col>
+                            <v-card> 
                                     <v-list>
                                         <v-list-item v-for="coin in coins" :key="coin.title">
                                         <v-list-item-content>
@@ -132,7 +130,15 @@
             background-color: #000;
         }
         h2 {
-            margin-left: 25%;
+            font-size: 0.5rem;
+        }
+        .logo-woman{
+            width: 400px;
+        }
+    }
+    @media screen and (max-device-width : 700px){
+        .font-size-custom {
+            font-size: 2rem;
         }
     }
 </style>

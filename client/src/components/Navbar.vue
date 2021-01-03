@@ -42,4 +42,16 @@
         max-width: 35%;
         height: auto !important;
     }
+     @media screen and (max-device-width : 835px){
+        .v-btn{
+            font-size: 70%;
+            width: 30%;
+        }
+        li{
+            display: flex;
+        }
+        .logo{
+            max-width: 70%;
+        }
+    }
 </style>
