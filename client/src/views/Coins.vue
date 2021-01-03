@@ -1,25 +1,18 @@
 <template>
     <div>
-         <div>
-            <v-toolbar>
-                <v-btn  icon  v-if="auth">
-                   <v-icon left>mdi-logout</v-icon>
-                </v-btn>
-                  <v-btn icon  :to="{name: 'Coins'}">
-                   <v-icon left>mdi-feature-search</v-icon>
-                </v-btn>
-            </v-toolbar>
-        </div>
+        <navbarapp/>
         <cryptoInformation/>
     </div>
 </template>
 
 <script>
     import cryptoInformation from "@/components/CryptoInformation"
+    import navbarapp from "@/components/NavBarApp.vue"
 
     export default {
         components: {
-            cryptoInformation
+            cryptoInformation,
+            navbarapp
         },
         computed: {
             auth() {

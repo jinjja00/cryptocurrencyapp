@@ -1,17 +1,6 @@
 <template>
   <div>
-       <div>
-            <v-toolbar dark>
-              <searchbycryptoname/>
-              <v-spacer></v-spacer>
-              <v-btn  icon  @click="logout" v-if="auth">
-                  <v-icon left>mdi-logout</v-icon>
-              </v-btn>
-                <v-btn icon  :to="{name: 'Coins'}">
-                  <v-icon left>mdi-feature-search</v-icon>
-              </v-btn>
-            </v-toolbar>
-        </div>
+          <navbarapp/>
           <v-container fluid>
               <v-row>
                 <v-row justify="center">
@@ -56,7 +45,8 @@
 <script>
   import { roundDecimal } from '@/plugins/roundDecimal.js'
   import cryptoeventslist from '@/components/CryptoEventsList.vue'
-  import searchbycryptoname from '@/components/CryptoSearchBar.vue'
+  import navbarapp from '@/components/NavBarApp.vue'
+
   export default {
     data(){
       return {
@@ -67,7 +57,7 @@
     },
     components: {
       cryptoeventslist,
-      searchbycryptoname
+      navbarapp
     },
     async mounted () {
       await this.$store.dispatch('crypto/fetchCrypto')
@@ -89,13 +79,7 @@
       }
     },
     methods: {
-      roundDecimal,
-      logout () {
-        this.$store.dispatch('user/logoutUser').then(()=>{
-          this.$router.push('/')
-        })
-
-      }
+      roundDecimal
     }
   }
 </script>

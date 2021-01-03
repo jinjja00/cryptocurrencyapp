@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <v-app>
-      <router-view/>
-    </v-app>
+		<v-main>
+			<router-view/>
+		</v-main>
+	</v-app>
   </div>
 </template>
 
@@ -13,16 +15,20 @@ export default {
 </script>
 
 <style>
-  #app {
-    font-family: HelveticaNow;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  li {
-    list-style-type: none;
-  }
-  @font-face {
-    font-family: HelveticaNow;
-    src: url('assets/HelveticaNowDisplayXBlk.otf');
-  }
+	.theme--light.v-data-table {
+		background-color: #f9f9f9;
+	}
+	#app {
+		font-family: HelveticaNow;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		background-color: #f9f9f9;
+	}
+	li {
+		list-style-type: none;
+	}
+	@font-face {
+		font-family: HelveticaNow;
+		src: url('assets/HelveticaNowDisplayXBlk.otf');
+	}
 </style>

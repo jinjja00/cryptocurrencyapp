@@ -1,23 +1,21 @@
 <template>
     <div>
-        <v-container class="mb-12">
+        <v-container class="mt-12  ">
             <v-row justify="center">
                 <v-data-table
                     :headers="headerFiltered"
                     :items="initialCoins"
                     class="mr-5"
-                    :hide-default-footer="true"
+                    page="2"
                     disable-sort>
                     <template slot="item" slot-scope="props">
                         <tr>
                             <td v-if="auth">
                                 <v-icon @click="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
                             </td>
-                            <router-link tag="tr" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
-                                <td style="inline-block;"> 
-                                    <v-img max-width="20" :src="props.item.image"/>
-                                    {{ props.item.name }}
-                                </td>
+                            <router-link align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
+                                <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
+                                {{ props.item.name }}
                             </router-link>    
                             <td nowrape="true">
                                 ${{ roundDecimal(props.item.current_price) }} 
@@ -70,7 +68,7 @@
                         text: 'Name',
                         align: 'start',
                         value : 'symbol',
-                        width: "1%"
+                        width: "180px"
                     },
                     {
                         text: 'Price (USD)',
