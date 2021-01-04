@@ -6,7 +6,7 @@
                     :headers="headerFiltered"
                     :items="initialCoins"
                     class="mr-5"
-                    page="2"
+                    :page="2"
                     disable-sort>
                     <template slot="item" slot-scope="props">
                         <tr>
@@ -96,14 +96,14 @@
         },
         async mounted () {
             this.fetchCrypto()
-            await this.$store.dispatch('user/setFavoriteCrypto')
 
-            this.initialCoins = this.$store.state.crypto.cryptoNews
-            this.favoriteCoins = this.$store.state.user.favoriteCrypto
+            await this.$store.dispatch('user/setFavoriteCrypto')
+        
         },
         methods: {
             async fetchCrypto () {
                 await this.$store.dispatch('crypto/fetchCrypto')
+                this.initialCoins = this.$store.state.crypto.cryptoNews
                 //setTimeout(() => this.fetchCrypto(), 60 * 1000) 
             },
             AddToFavorite (coinId)  {
