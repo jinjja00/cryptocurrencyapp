@@ -3,7 +3,7 @@
         <v-app-bar dark>
             <searchbycryptoname/>
             <v-spacer></v-spacer>
-             <v-btn icon  :to="{name: 'Mainpage'}">
+             <v-btn icon  :to="{name: 'Mainpage'}" v-if="auth">
                 <v-icon left>mdi-home</v-icon>
             </v-btn>
              <v-btn icon  :to="{name: 'Coins'}">
