@@ -4,13 +4,14 @@
 			<v-card
 				flat
 				tile
-				class="black lighten-1 white--text text-center"
+				:class="footerColor"
 				width="100%">
 				<v-card-text class="mx-auto">
 					<v-btn
 						v-for="icon in icons"
 						:key="icon"
-						class="mx-4 white--text"
+						class="mx-4"
+						:class="footerColor"
 						icon>
 						<v-icon size="24px">{{ icon }}</v-icon>
 					</v-btn>
@@ -18,7 +19,7 @@
 				
 				<v-divider></v-divider>
 
-				<v-card-text class="white--text">
+				<v-card-text :class="footerColor">
 					{{ new Date().getFullYear() }} — Powered by CoinGecko API
 				</v-card-text>
 			</v-card>
@@ -37,10 +38,26 @@
                 'mdi-instagram',
               ],
             }
-          }
+		  },
+		computed: {
+			footerColor () {
+				switch (this.$vuetify.breakpoint.name) {
+					case 'xs': return "white black--text  text-center "
+					case 'sm': return "white black--text  text-center"
+					case 'md': return "white black--text  text-center"
+					case 'lg': return "black white--text text-center"
+					case 'xl': return "black white--text text-center"
+       			 }
+			}
+		}
     }
 </script>
 
 <style scoped>
-
+	@media screen and (max-device-width : 1142px){
+			.v-footer {
+				color:#fff;
+				background-color: #000;
+			}
+	}
 </style>
