@@ -47,17 +47,11 @@
 					case 'md': return "white black--text  text-center"
 					case 'lg': return "black white--text text-center"
 					case 'xl': return "black white--text text-center"
-       			 }
+       			}
 			}
 		}
     }
 </script>
 
 <style scoped>
-	@media screen and (max-device-width : 1142px){
-			.v-footer {
-				color:#fff;
-				background-color: #000;
-			}
-	}
 </style>
