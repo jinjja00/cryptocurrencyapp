@@ -42,9 +42,9 @@
 		computed: {
 			footerColor () {
 				switch (this.$vuetify.breakpoint.name) {
-					case 'xs': return "white black--text  text-center "
-					case 'sm': return "white black--text  text-center"
-					case 'md': return "white black--text  text-center"
+					case 'xs': return "white black--text text-center"
+					case 'sm': return "white black--text text-center"
+					case 'md': return "white black--text text-center"
 					case 'lg': return "black white--text text-center"
 					case 'xl': return "black white--text text-center"
        			}

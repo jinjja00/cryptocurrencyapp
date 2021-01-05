@@ -15,11 +15,11 @@
                     <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
                 </svg>
             </div>
-            <v-row justify="center" align="center" no-gutters>
-                <v-col col="auto">
+            <v-row  justify="center" align="center" no-gutters>
+                <v-col md="5" offset-xs="2">
                     <img class="logo-woman" svg-inline :src="require('@/assets/cryptologo/undraw_crypto.svg')" height="500" width="500"/>
                 </v-col> 
-                <v-col col="auto">
+                <v-col md="3" xs="1">
                     <h2 class="text-uppercase font-size-custom text-center">Follow the trend</h2>
                 </v-col> 
             </v-row>
@@ -108,9 +108,9 @@
         overflow: hidden;
     }
     .wave-container > svg{
-      display: block;
-      transform-origin: bottom;
-      animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        display: block;
+        transform-origin: bottom;
+        animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
     }
     @keyframes animateWave {
       0% {
@@ -120,7 +120,7 @@
         transform: scale(1,1);
       }
     }
-    @media screen and (max-device-width : 1143px){
+    @media screen and (max-device-width : 1143px) {
         svg {
             visibility: hidden;
         }
@@ -134,12 +134,23 @@
             width: 400px;
         }
     }
-    @media screen and (max-device-width : 700px){
+    @media screen and (max-device-width : 700px) {
+        h1 {
+             margin: 5rem 1rem;
+        }
         .font-size-custom {
             font-size: 2rem;
         }
          .logo-woman{
             width: 200px;
+        }
+    }
+     @media screen and (max-device-width : 330px) {
+         .logo-woman{
+            width: 150px;
+        }
+        h2 {
+            font-size: 1rem !important;
         }
     }
 </style>

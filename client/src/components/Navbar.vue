@@ -56,7 +56,7 @@
     }
     @media screen and (max-device-width : 500px){
          .logo{
-            max-width: 80%;
+            max-width: 100%;
         }
     }
 </style>
