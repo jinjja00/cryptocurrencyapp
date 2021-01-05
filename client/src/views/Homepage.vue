@@ -1,15 +1,17 @@
 <template>
     <div>
-        <header class="background">
-          <nav-bar></nav-bar>
-          <v-divider dark></v-divider>
-          <div class="wave-container">
-                <h1>Your crypto news!</h1>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-                </svg>
-          </div>
-        </header>
+        <v-lazy>
+            <header class="background">
+            <nav-bar></nav-bar>
+            <v-divider dark></v-divider>
+            <div class="wave-container">
+                    <h1>Your crypto news!</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                        <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+                    </svg>
+            </div>
+            </header>
+        </v-lazy>
         <v-container fluid class="pa-0 ma-0">
             <div class="wave-container">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

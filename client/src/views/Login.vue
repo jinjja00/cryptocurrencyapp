@@ -1,25 +1,27 @@
 <template>
     <div>
-        <loading-page :loading="loading"/>
-        <v-container fluid class="background-image"> 
-            <v-row justify="center" align="center" style="height:900px;">
-                <v-col cols="8" md="4">
-                    <v-alert border="top" color="red lighten-2" dark v-if="error" type="error" v-html="error"/>
-                    <v-form>
-                        <v-text-field dark color="white" label="Email" v-model="email"/>
-                        <v-text-field 
-                        dark color="white" 
-                        label="Password" 
-                        v-model="password"
-                        type="password"  
-                        required
-                        autocomplete="new-password"/>
-                        <v-btn  text color="white" :to="{name: 'Register'}">Register</v-btn>
-                        <v-btn  class="float-right" text color="white" @click="login">Login</v-btn>
-                    </v-form>
-                </v-col>
-            </v-row>
-        </v-container>
+        <v-lazy>
+            <v-container fluid class="background-image">
+                <loading-page :loading="loading"/> 
+                <v-row justify="center" align="center" style="height:900px;">
+                    <v-col cols="8" md="4">
+                        <v-alert border="top" color="red lighten-2" dark v-if="error" type="error" v-html="error"/>
+                        <v-form>
+                            <v-text-field dark color="white" label="Email" v-model="email"/>
+                            <v-text-field 
+                            dark color="white" 
+                            label="Password" 
+                            v-model="password"
+                            type="password"  
+                            required
+                            autocomplete="new-password"/>
+                            <v-btn  text color="white" :to="{name: 'Register'}">Register</v-btn>
+                            <v-btn  class="float-right" text color="white" @click="login">Login</v-btn>
+                        </v-form>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-lazy>
         <footercrypto/>
     </div>
 </template>

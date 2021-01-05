@@ -11,7 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "apexcharts": "^3.23.0",
+    "apexcharts": "^3.23.1",
     "axios": "^0.19.2",
     "vue": "^2.6.12",
     "vue-apexcharts": "^1.6.0",
