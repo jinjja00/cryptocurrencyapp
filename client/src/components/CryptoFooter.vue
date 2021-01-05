@@ -4,14 +4,13 @@
 			<v-card
 				flat
 				tile
-				:class="footerColor"
+				class="black white--text text-center"
 				width="100%">
 				<v-card-text class="mx-auto">
 					<v-btn
 						v-for="icon in icons"
 						:key="icon"
-						class="mx-4"
-						:class="footerColor"
+						class="black white--text text-center mx-4"
 						icon>
 						<v-icon size="24px">{{ icon }}</v-icon>
 					</v-btn>
@@ -19,7 +18,7 @@
 				
 				<v-divider></v-divider>
 
-				<v-card-text :class="footerColor">
+				<v-card-text class="black white--text text-center">
 					{{ new Date().getFullYear() }} — Powered by CoinGecko API
 				</v-card-text>
 			</v-card>
@@ -40,7 +39,7 @@
             }
 		  },
 		computed: {
-			footerColor () {
+			/*footerColor () {
 				switch (this.$vuetify.breakpoint.name) {
 					case 'xs': return "white black--text text-center"
 					case 'sm': return "white black--text text-center"
@@ -48,7 +47,7 @@
 					case 'lg': return "black white--text text-center"
 					case 'xl': return "black white--text text-center"
        			}
-			}
+			}*/
 		}
     }
 </script>

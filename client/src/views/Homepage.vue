@@ -2,6 +2,7 @@
     <div>
         <header class="background">
           <nav-bar></nav-bar>
+          <v-divider dark></v-divider>
           <div class="wave-container">
                 <h1>Your crypto news!</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -15,46 +16,15 @@
                     <path fill="#000" fill-opacity="1" d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,176C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
                 </svg>
             </div>
+            <h2 class="text-uppercase font-size-custom text-center">Follow your favorite crypto</h2>
             <v-row  justify="center" align="center" no-gutters>
-                <v-col md="5" offset-xs="2">
-                    <img class="logo-woman" svg-inline :src="require('@/assets/cryptologo/undraw_crypto.svg')" height="500" width="500"/>
+                <v-col md="5" class="hidden-sm-and-down">
+                    <img class="logo-woman" svg-inline :src="require('@/assets/cryptologo/undraw_crypto.svg')" height="400" width="400"/>
                 </v-col> 
-                <v-col md="3" xs="1">
-                    <h2 class="text-uppercase font-size-custom text-center">Follow the trend</h2>
+                <v-col md="3" align="center" class="mt-9 mb-9">
+                    <cryptotablehomepage/>
                 </v-col> 
             </v-row>
-            <div class="wave-container lower-heading">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                        <path fill="#000" fill-opacity="1" d="M0,160L34.3,186.7C68.6,213,137,267,206,288C274.3,309,343,299,411,277.3C480,256,549,224,617,218.7C685.7,213,754,235,823,218.7C891.4,203,960,149,1029,122.7C1097.1,96,1166,96,1234,122.7C1302.9,149,1371,203,1406,229.3L1440,256L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path>
-                    </svg>
-                    <v-row justify="center" no-gutters>
-                        <v-col col="auto" align="center" class="mb-5">
-                            <v-card width="300"> 
-                                    <v-list>
-                                        <v-list-item v-for="coin in coins" :key="coin.title">
-                                        <v-list-item-content>
-                                            <v-list-item-title v-text="coin.title"></v-list-item-title>
-                                        </v-list-item-content>
-
-                                        <v-list-item-avatar>
-                                            <v-img :src="coin.logo"></v-img>
-                                        </v-list-item-avatar>
-                                        </v-list-item>
-                                    </v-list>
-                                    <v-divider></v-divider>
-                                <v-list-item-subtitle>
-                                    <v-btn
-                                        block 
-                                        color="white"
-                                        :to="{name: 'Coins'}"
-                                    >
-                                    Browse more..
-                                    </v-btn>
-                                </v-list-item-subtitle>
-                            </v-card>
-                        </v-col>  
-                     </v-row>
-                </div>
         </v-container>
         <footercrypto/>
     </div>
@@ -63,22 +33,13 @@
 <script>
       import navBar from '@/components/NavBar'
       import footercrypto from '@/components/CryptoFooter.vue'
+      import cryptotablehomepage from '@/components/CryptoTableHomePage.vue'
   
       export default {
           components: {
             navBar,
+            cryptotablehomepage,
             footercrypto,
-          },
-          data () {
-            return {
-              coins: [
-                { title: 'Bitcoin', logo:  require('@/assets/cryptologo/btc.png')},
-                { title: 'Ethereum', logo: require('@/assets/cryptologo/eth.png')},
-                { title: 'Tether', logo: require('@/assets/cryptologo/tet.png')},
-                { title: 'XRP', logo: require('@/assets/cryptologo/xrp.png')},
-                { title: 'Bitcoin Cash', logo: require('@/assets/cryptologo/btcash.png')},
-              ]
-            }
           }
       }
 </script>
@@ -104,7 +65,7 @@
     .background {
         background: url('../assets/keyboardbanner.jpg') no-repeat center center fixed;
         background-size: cover;
-        height: 90vh;
+        height: 95vh;
         overflow: hidden;
     }
     .wave-container > svg{
@@ -136,7 +97,7 @@
     }
     @media screen and (max-device-width : 700px) {
         h1 {
-             margin: 5rem 1rem;
+             margin: 2rem 1rem;
         }
         .font-size-custom {
             font-size: 2rem;
@@ -145,10 +106,7 @@
             width: 200px;
         }
     }
-     @media screen and (max-device-width : 330px) {
-         .logo-woman{
-            width: 150px;
-        }
+     @media screen and (max-device-width : 500px) {
         h2 {
             font-size: 1rem !important;
         }
