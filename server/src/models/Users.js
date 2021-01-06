@@ -24,7 +24,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true
         },
-        password: DataTypes.STRING
+        password: DataTypes.STRING,
+        status: {
+            type: DataTypes.STRING,
+            defaultValue: 'pending'
+        }
     }, {
         hooks: {
             beforeSave: hashPassword
@@ -32,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     })
     Users.associate = (models) => {
         Users.belongsToMany(models.Coins, {foreignKey: 'UserID', through: 'CoinsUser'})
+        Users.belongsTo(models.Codes, {foreignKey:'email', through: 'VerificationUserCode'})
     }
     Users.sync().then(() => {
         Users.create({
