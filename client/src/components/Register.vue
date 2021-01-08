@@ -69,10 +69,7 @@
                         password: this.password
                     })
 
-                    this.$store.dispatch('user/setToken', response.data.token)
-                    this.$store.dispatch('user/setUser', response.data.user)
-
-                    this.$router.push('/main')
+                    this.$router.push('/login')
                 } catch(error) {
                     this.loading = false
                     this.error = error.response.data.error

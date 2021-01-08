@@ -21,7 +21,7 @@
     @media screen and (max-device-width : 500px){
        .v-btn{
            width: 10%;
-           font-size:65%;
+           font-size:60%;
        }
     }
 </style>

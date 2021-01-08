@@ -98,7 +98,8 @@
             this.fetchCrypto()
 
             await this.$store.dispatch('user/setFavoriteCrypto')
-        
+            this.favoriteCoins = this.$store.state.user.favoriteCrypto
+            console.log(this.favoriteCoins)
         },
         methods: {
             async fetchCrypto () {
