@@ -3,6 +3,7 @@ const db = require('../models/index')
 module.exports = {
     async getUserFavoriteCrypto (req, res) {
         try {
+            console.log(req.user.id)
             const coins = await db.Users.findOne({
                 where: {
                     id : req.user.id

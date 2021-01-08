@@ -1,6 +1,9 @@
 const {Users} = require('../models')
 const jwt = require('jsonwebtoken')
 const config  = require('../config/config')
+const emailService = require("../utils/nodemailer")
+const crypto = require("crypto");
+
 
 function jwtSignUser (user) {
     const ONE_WEEK = 60 * 60 * 24 * 7
@@ -9,20 +12,42 @@ function jwtSignUser (user) {
     })
 }
 
+async function sendEmailToVerifyAccount (userId, userEmail, userCode) {
+    const baseUrl = 'http://localhost:8081'
+
+    const data = {
+        from: `bisen@cryptobis.app`,
+        to: userEmail,
+        subject: "Activated your cryptobis account",
+        html: `<p>Please use the following link within the next 10 minutes to activate your account on YOUR APP: 
+        <a href="${baseUrl}/verifyUserEmail/${userId}/${userCode}">Verify</a>`
+    }
+
+    await emailService.sendMail(data)
+}
+
 module.exports = {
     async register (req, res) {
         try {
-            console.log(req.body)
-            const user = await Users.create(req.body)
-            
-            const userJson = user.toJSON()
-            res.send({
-                user: userJson,
-                token: jwtSignUser(userJson)
+            const verificationCode = crypto.randomBytes(16).toString("hex")
+
+            await Users.create({
+                email: req.body.email,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                password: req.body.password,
+                code: verificationCode
+            }).then( result => {
+                 sendEmailToVerifyAccount(result.id, result.email, verificationCode)
+                if (sendEmailToVerifyAccount){
+                    res.status(200).send({
+                        success: 'account created'
+                    })
+                }
             })
         } catch (err) {
             res.status(400).send({
-                error: 'This email account is already in use'
+                err
             })
         }
     },
@@ -63,5 +88,10 @@ module.exports = {
                 error: 'An error has occured trying to log in'
             })
         }
+    },
+    async verifyUserWithEmail (req, res) { 
+        console.log(req.params)
+
+        console.log('wtf')
     }
 }

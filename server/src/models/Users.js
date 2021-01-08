@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true
         },
         password: DataTypes.STRING,
+        code: DataTypes.STRING,  
         status: {
             type: DataTypes.STRING,
             defaultValue: 'pending'
@@ -36,16 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     })
     Users.associate = (models) => {
         Users.belongsToMany(models.Coins, {foreignKey: 'UserID', through: 'CoinsUser'})
-        Users.belongsTo(models.Codes, {foreignKey:'email', through: 'VerificationUserCode'})
     }
-    Users.sync().then(() => {
-        Users.create({
-            firstName: "Engjell",
-            lastName: "Bislimi",
-            email: "engjellbislimi1@gmail.com",
-            password: "testpassword"
-        })
-    })
 
     Users.prototype.comparePassword = function (userPassword) {
         return bcrypt.compareAsync(userPassword, this.password)
