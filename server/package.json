@@ -29,7 +29,5 @@
     "sequelize": "^5.22.3",
     "sqlite": "^3.0.6"
   },
-  "devDependencies": {
-    "webpack-dev-server": ">=3.1.11"
-  }
+  "devDependencies": {}
 }
