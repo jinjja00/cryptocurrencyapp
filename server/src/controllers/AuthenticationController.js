@@ -16,7 +16,7 @@ async function sendEmailToVerifyAccount (userId, userEmail, userCode) {
     const baseUrl = 'http://localhost:8081'
 
     const data = {
-        from: `bisen@cryptobis.app`,
+        from: `enbis95@gmail.com`,
         to: userEmail,
         subject: "Activated your cryptobis account",
         html: `<p>Please use the following link within the next 10 minutes to activate your account on YOUR APP: 
