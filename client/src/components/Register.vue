@@ -27,6 +27,8 @@
                                 autocomplete="new-password"/>
                             <v-btn  color="white" :to="{name: 'Login'}">Login</v-btn>
                             <v-btn  class="float-right" color="white" @click="register">Register</v-btn>
+                            <vue-recaptcha @verify="onVerify" sitekey="6LeM1JYaAAAAAGAOZIV8Uhmr-XDzKSqNLQaWCYyU" :loadRecaptchaScript="true">
+                            </vue-recaptcha>
                         </v-form>
                     </v-col>
                 </v-row>
@@ -40,11 +42,13 @@
     import AuthenticationService from '@/services/AuthenticationService'
     import footercrypto from '@/components/CryptoFooter'
     import loadingPage from '@/components/Loading'
+    import VueRecaptcha from 'vue-recaptcha';
 
     export default  {
         components: {
             loadingPage,
-            footercrypto
+            footercrypto,
+            VueRecaptcha
         },
         data () {
             return {
@@ -54,12 +58,14 @@
                 password: '',
                 confirmPassword: '',
                 error: null,
-                loading: false
+                loading: false,
+                captchaBool: false
             }
         },
         methods: {
             async register () {
-                try {
+                if (this.captchaBool) {
+                    try {
                     this.loading = true
 
                     const response = await AuthenticationService.register({
@@ -70,10 +76,14 @@
                     })
 
                     this.$router.push('/login')
-                } catch(error) {
-                    this.loading = false
-                    this.error = error.response.data.error
+                    } catch(error) {
+                        this.loading = false
+                        this.error = error.response.data.error
+                    }
                 }
+            },
+            onVerify: function (response) {
+                if (response) this.captchaBool= true
             }
         }
     }
