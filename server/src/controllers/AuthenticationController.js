@@ -91,7 +91,18 @@ module.exports = {
     },
     async verifyUserWithEmail (req, res) { 
         console.log(req.params)
+        const user = await Users.findOne({
+            where: {
+                code: req.params.secretCode
+            },
+            attributes:['id','code','status']
+        }).then( result => {
+            Users.update({ status: 'activated', code:'' }, {
+                where: {
+                  code: result.code
+                }
+            })
+       })
 
-        console.log('wtf')
     }
 }
