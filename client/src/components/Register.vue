@@ -64,7 +64,7 @@
         },
         methods: {
             async register () {
-                if (this.captchaBool) {
+                /*if (this.captchaBool) {*/
                     try {
                     this.loading = true
 
@@ -80,7 +80,7 @@
                         this.loading = false
                         this.error = error.response.data.error
                     }
-                }
+                /*}*/
             },
             onVerify: function (response) {
                 if (response) this.captchaBool= true
