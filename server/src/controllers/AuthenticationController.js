@@ -38,7 +38,7 @@ module.exports = {
                 password: req.body.password,
                 code: verificationCode
             }).then( result => {
-                 sendEmailToVerifyAccount(result.id, result.email, verificationCode)
+                sendEmailToVerifyAccount(result.id, result.email, verificationCode)
                 if (sendEmailToVerifyAccount){
                     res.status(200).send({
                         success: 'account created'
