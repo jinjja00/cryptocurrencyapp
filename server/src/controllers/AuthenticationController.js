@@ -65,6 +65,12 @@ module.exports = {
                     error: 'The login information was incorrect'
                 })
             }
+
+            if(user.status == 'pending') {
+                return res.status(403).send({
+                    error: 'Please click the activation link we sent to your email'
+                })
+            }
             const isPasswordValid = await user.comparePassword(password)
 
             if (!isPasswordValid) {
@@ -91,18 +97,25 @@ module.exports = {
     },
     async verifyUserWithEmail (req, res) { 
         console.log(req.params)
-        const user = await Users.findOne({
-            where: {
-                code: req.params.secretCode
-            },
-            attributes:['id','code','status']
-        }).then( result => {
-            Users.update({ status: 'activated', code:'' }, {
+        try {
+            await Users.findOne({
                 where: {
-                  code: result.code
-                }
+                    code: req.params.secretCode
+                },
+                attributes:['id','code','status']
+            }).then(result => {
+                Users.update({status: 'activated', code:''}, {
+                    where: {
+                      code: result.code
+                    }
+                })
+                res.redirect('http://localhost:8080/#/login');
+           })
+        } catch (err) {
+            console.log(err)
+            res.status(403).send({
+                error: 'An error has occured trying to activate the account'
             })
-       })
-
+        }
     }
 }
