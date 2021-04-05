@@ -1,7 +1,7 @@
 const {Users} = require('../models')
 const jwt = require('jsonwebtoken')
 const config  = require('../config/config')
-const emailService = require("../utils/nodemailer")
+const sendEmailToVerifyAccount = require("../utils/nodemailer")
 const crypto = require("crypto");
 
 
@@ -12,7 +12,7 @@ function jwtSignUser (user) {
     })
 }
 
-async function sendEmailToVerifyAccount (userId, userEmail, userCode) {
+/*async function sendEmailToVerifyAccount (userId, userEmail, userCode) {
     const baseUrl = 'http://localhost:8081'
 
     const data = {
@@ -24,7 +24,7 @@ async function sendEmailToVerifyAccount (userId, userEmail, userCode) {
     }
 
     await emailService.sendMail(data)
-}
+}*/
 
 module.exports = {
     async register (req, res) {
