@@ -12,20 +12,6 @@ function jwtSignUser (user) {
     })
 }
 
-/*async function sendEmailToVerifyAccount (userId, userEmail, userCode) {
-    const baseUrl = 'http://localhost:8081'
-
-    const data = {
-        from: `enbis95@gmail.com`,
-        to: userEmail,
-        subject: "Activated your cryptobis account",
-        html: `<p>Please use the following link within the next 10 minutes to activate your account on YOUR APP: 
-        <a href="${baseUrl}/verifyUserEmail/${userId}/${userCode}">Verify</a>`
-    }
-
-    await emailService.sendMail(data)
-}*/
-
 module.exports = {
     async register (req, res) {
         try {
