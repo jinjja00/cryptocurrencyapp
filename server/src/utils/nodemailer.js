@@ -29,11 +29,11 @@ async function sendEmailToVerifyAccount(userId, userEmail, userCode) {
     to: userEmail,
     subject: "Activated your cryptobis account",
     html: htmlToSend,
-    /*attachments: [{
-      filename: 'main.jpeg',
-      path: __dirname +'/picturesEmailTemplate/main.jpeg',
+    attachments: [{
+      filename: 'main.png',
+      path: __dirname +'/picturesEmailTemplate/main.png',
       cid: 'logo' 
- }]*/
+ }]
 }
   await transporter.sendMail(mailOptions);
 }
