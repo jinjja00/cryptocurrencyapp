@@ -39,4 +39,8 @@
     }
 </script>
 
-<style></style>
+<style scoped>
+.theme--dark.v-btn--active:before, .theme--dark.v-btn--active:hover:before {
+    opacity: 0;
+}
+</style>

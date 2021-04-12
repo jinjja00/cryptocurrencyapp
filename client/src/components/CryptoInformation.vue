@@ -38,16 +38,22 @@
                             <tr v-else>
                                 <td>
                                     <ul class="flex-content">
-                                        <li class="flex-item" data-label="Name">
+                                        <li class="flex-item text-uppercase" data-label="Name">
                                             <router-link class="text-xs-right" align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
                                                 <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
                                                     {{ props.item.name }}
                                             </router-link> 
                                         </li>
                                         <li class="flex-item" data-label="Price (USD)">${{ roundDecimal(props.item.current_price) }} </li>
-                                        <li class="flex-item" :style="getColor(props.item.price_change_percentage_1h_in_currency)" data-label="Percent (1h)">{{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %</li>
-                                        <li class="flex-item" :style="getColor(props.item.price_change_percentage_24h)"  data-label="Percent (24h)">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</li>
-                                        <li class="flex-item" :style="getColor(props.item.price_change_percentage_7d_in_currency)" data-label="Percent (7d)">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</li>
+                                        <li class="flex-item"  data-label="Percent (1h)">
+                                            Percent(1h): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %</span>
+                                        </li>
+                                        <li class="flex-item" data-label="Percent (24h)">
+                                            Percent(24h): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</span>
+                                        </li>
+                                        <li class="flex-item" data-label="Percent (7d)">
+                                            Percent(7d): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</span>
+                                        </li>
                                         <li class="flex-item" data-label="Last Updated">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</li>
                                     </ul>
                                 </td>
