@@ -58,7 +58,7 @@
             </v-row>
         </v-container>
         <v-divider class="mx-16"></v-divider>
-        <apexchart class="test" v-if="options.series" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
+        <apexchart class="chartHeightWidth" v-if="options.series" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
         <footercrypto/>
     </div>
 </template>
@@ -115,8 +115,9 @@
 </script>
 
 <style scoped>
-    .test {
-        max-height: 500x;
-        max-width: 600;
+    .chartHeightWidth {
+        margin: auto;
+        max-height: 700px;
+        max-width: 700px;
     }
 </style>
