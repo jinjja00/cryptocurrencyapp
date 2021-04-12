@@ -1,42 +1,63 @@
 <template>
-    <div>
-        <v-container class="mt-12  ">
-            <v-row justify="center">
-                <v-data-table
-                    :headers="headerFiltered"
-                    :items="initialCoins"
-                    class="mr-5"
-                    :page="2"
-                    disable-sort>
-                    <template slot="item" slot-scope="props">
-                        <tr>
-                            <td v-if="auth">
-                                <v-icon @click="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
-                            </td>
-                            <router-link align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
-                                <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
-                                {{ props.item.name }}
-                            </router-link>    
-                            <td nowrape="true">
-                                ${{ roundDecimal(props.item.current_price) }} 
-                            </td>
-                            <td nowrape="true" :style="getColor(props.item.price_change_percentage_1h_in_currency)">
-                                {{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %
-                            </td>
-                            <td nowrape="true" :style="getColor(props.item.price_change_percentage_24h)">
-                                {{ roundDecimal(props.item.price_change_percentage_24h) }} %
-                            </td>
-                            <td nowrape="true" :style="getColor(props.item.price_change_percentage_7d_in_currency)">
-                                {{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %
-                            </td>
-                            <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
-                            <td><v-sparkline color="black" :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
-                        </tr>
-                    </template>
-                  </v-data-table>
-            </v-row>
-          </v-container>
-    </div>
+    <v-container>
+        <v-row>
+            <v-col cols="12">
+                <v-layout v-resize="onResize">
+                    <v-data-table
+                        :headers="headerFiltered"
+                        :items="initialCoins"
+                        class="mr-5"
+                        :page="2"
+                        :hide-headers="isMobile" 
+                        :class="{mobile: isMobile}"
+                        disable-sort>
+                        <template slot="item" slot-scope="props">
+                            <tr v-if="!isMobile">
+                                <td v-if="auth">
+                                    <v-icon @click="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
+                                </td>
+                                <router-link align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
+                                    <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
+                                    {{ props.item.name }}
+                                </router-link>    
+                                <td nowrape="true">
+                                    ${{ roundDecimal(props.item.current_price) }} 
+                                </td>
+                                <td nowrape="true" :style="getColor(props.item.price_change_percentage_1h_in_currency)">
+                                    {{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %
+                                </td>
+                                <td nowrape="true" :style="getColor(props.item.price_change_percentage_24h)">
+                                    {{ roundDecimal(props.item.price_change_percentage_24h) }} %
+                                </td>
+                                <td nowrape="true" :style="getColor(props.item.price_change_percentage_7d_in_currency)">
+                                    {{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %
+                                </td>
+                                <td nowrape="true">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</td>
+                                <td><v-sparkline color="black" :value="props.item.sparkline_in_7d.price"></v-sparkline></td>
+                            </tr>
+                            <tr v-else>
+                                <td>
+                                    <ul class="flex-content">
+                                        <li class="flex-item" data-label="Name">
+                                            <router-link class="text-xs-right" align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
+                                                <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
+                                                    {{ props.item.name }}
+                                            </router-link> 
+                                        </li>
+                                        <li class="flex-item" data-label="Price (USD)">${{ roundDecimal(props.item.current_price) }} </li>
+                                        <li class="flex-item" :style="getColor(props.item.price_change_percentage_1h_in_currency)" data-label="Percent (1h)">{{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %</li>
+                                        <li class="flex-item" :style="getColor(props.item.price_change_percentage_24h)"  data-label="Percent (24h)">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</li>
+                                        <li class="flex-item" :style="getColor(props.item.price_change_percentage_7d_in_currency)" data-label="Percent (7d)">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</li>
+                                        <li class="flex-item" data-label="Last Updated">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </template>
+                    </v-data-table>
+                </v-layout>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -47,6 +68,7 @@
     export default {
         data () {
             return {
+                isMobile: false,
                 initialCoins: [],
                 favoriteCoins: [],
                 options: {
@@ -126,6 +148,12 @@
             getColor (num) {
                 return num > 0 ? "color:green" : "color:red";
             },
+            onResize () {
+                if (window.innerWidth < 769)
+                    this.isMobile = true;
+                else
+                    this.isMobile = false;
+            },
             roundDecimal  
         },
         computed: {
@@ -148,5 +176,66 @@
 <style scoped>
     tr:hover {
         background-color: transparent !important;
+    }
+     .mobile {
+      color: #333;
+    }
+
+    @media screen and (max-width: 768px) {
+      .mobile table.v-table tr {
+        max-width: 100%;
+        position: relative;
+        display: block;
+      }
+
+      .mobile table.v-table tr:nth-child(odd) {
+        border-left: 6px solid deeppink;
+      }
+
+      .mobile table.v-table tr:nth-child(even) {
+        border-left: 6px solid cyan;
+      }
+
+      .mobile table.v-table tr td {
+        display: flex;
+        width: 100%;
+        border-bottom: 1px solid #f5f5f5;
+        height: auto;
+        padding: 10px;
+      }
+
+      .mobile table.v-table tr td ul li:before {
+        content: attr(data-label);
+        padding-right: .5em;
+        text-align: left;
+        display: block;
+        color: #999;
+
+      }
+      .v-datatable__actions__select
+      {
+        width: 50%;
+        margin: 0px;
+        justify-content: flex-start;
+      }
+      .mobile .theme--light.v-table tbody tr:hover:not(.v-datatable__expand-row) {
+        background: transparent;
+      }
+
+    }
+    .flex-content {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .flex-item {
+      padding: 5px;
+      width: 50%;
+      height: 40px;
+      font-weight: bold;
     }
 </style>
