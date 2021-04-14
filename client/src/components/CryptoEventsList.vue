@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card dark justify="center">
+        <v-card  justify="center">
             <v-card-title class="headline text-center">Upcoming Events</v-card-title>
             <template v-if="crypto.cryptoEventIncoming.count != 0">
                 <v-list-item v-for="(event, index) in crypto.cryptoEventIncoming.data" :key="index" :href="event.website" target=”_blank”>

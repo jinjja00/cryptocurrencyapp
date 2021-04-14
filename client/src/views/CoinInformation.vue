@@ -15,9 +15,17 @@
                 <v-col cols="2" md="2">
                     <h3 class="overline">Market Cap</h3>
                     <span>Rank #{{currentCoinInformation.market_cap_rank}}</span>
+                    <h3 class="overline">Market Cap</h3>
+                    <span> $ {{Intl.NumberFormat().format(currentCoinInformation.market_data.market_cap.usd)}}</span>
                 </v-col>
-                <v-col cols="12" md="6" align="end">
-                      <v-btn rounded class="ma-2 pa-4" color="black" dark small :href="currentCoinInformation.links.subreddit_url" target="_blank">
+                <v-col cols="2">
+                    <h3 class="overline">Low 24h / High 24h</h3>
+                    <span class="font-weight-regular">$ {{currentCoinInformation.market_data.low_24h.usd}} / $ {{currentCoinInformation.market_data.high_24h.usd}}</span>
+                    <h3 class="overline">Circulating Supply</h3>
+                    <span>{{currentCoinInformation.market_data.circulating_supply}} / {{currentCoinInformation.market_data.total_supply}}</span>
+                </v-col>
+                <v-col cols="8" md="4" align="end">
+                    <v-btn rounded class="ma-2 pa-4" color="black" dark small :href="currentCoinInformation.links.subreddit_url" target="_blank">
                         <v-icon left>mdi-reddit</v-icon> Reddit
                     </v-btn>
                     <v-btn rounded class="ma-2 pa-4" color="black" dark small :href="currentCoinInformation.links.repos_url.github[0]" target="_blank">
@@ -35,7 +43,7 @@
         </v-container>
         <v-container class="pa-16">
             <v-row justify="center">
-                 <v-col cols="6" md="4">
+                 <!--<v-col cols="6" md="4">
                     <h3 class="overline">Low 24h / High 24h</h3>
                     <span class="font-weight-regular">$ {{currentCoinInformation.market_data.low_24h.usd}} / $ {{currentCoinInformation.market_data.high_24h.usd}}</span>
 
@@ -44,16 +52,16 @@
 
                     <h3 class="overline">Circulating Supply</h3>
                     <span>{{currentCoinInformation.market_data.circulating_supply}} / {{currentCoinInformation.market_data.total_supply}}</span>
-                </v-col>
-                <v-col cols="6" md="4">
-                    <h3 class="overline">Price Change 24h(%)</h3>
-                    <span>{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_24h) }}</span>
+                </v-col>-->
+                   <v-col class="d-flex align-center justify-center">
+                    <h3 class="overline mr-5">Price Change 24h(%)</h3>
+                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_24h) }}</span>
 
-                    <h3 class="overline">Price Change 7d(%)</h3>
-                    <span>{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_7d) }}</span>
+                    <h3 class="overline mr-5">Price Change 7d(%)</h3>
+                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_7d) }}</span>
 
-                    <h3 class="overline">Price Change 30d(%)</h3>
-                    <span>{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_30d) }}</span>
+                    <h3 class="overline mr-5">Price Change 30d(%)</h3>
+                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_30d) }}</span>
                 </v-col>
             </v-row>
         </v-container>

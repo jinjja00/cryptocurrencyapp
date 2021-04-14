@@ -1,45 +1,39 @@
 <template>
-  <div>
-          <navbarapp/>
-          <v-container fluid>
-              <v-row>
-                <v-row justify="center">
-                  <v-col cols="12" md="6">
-                    <v-simple-table dark>
-                      <template v-slot:default>
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th class="text-left">Name</th>
-                            <th class="text-left">Price</th>
-                            <th class="text-left">High 24h</th>
-                            <th class="text-left">Change 24h</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="coin in filterFavoritesCoins" :key="coin.id">
-                              <td> 
-                                <!--TODO remove favorite -->
-                                <v-icon color="yellow">mdi-star</v-icon>
-                              </td>
-                              <router-link tag="tr" :to="{ name: 'CoinInformation', params: { id: coin.name.toLowerCase() }}">
-                                <td>{{ coin.name }}</td>
-                              </router-link> 
-                              <td>{{ coin.current_price }}</td>
-                              <td>{{ coin.high_24h }}</td>
-                              <td><v-chip color="grey darken-1" dark>{{ roundDecimal(coin.price_change_percentage_24h) }}%</v-chip></td>
-                          </tr>
-                        </tbody>
-                      </template>
-                    </v-simple-table>
-                  </v-col>
-                </v-row>
-                <v-col cols="4" md="2">
-                  <cryptoeventslist/>
-                </v-col>
-              </v-row>
-          </v-container>
-  </div>
+  	<div>
+		<navbarapp/>
+		<v-container fluid>
+			<v-row>
+				<v-col cols="4" md="2">
+					<cryptoeventslist/>
+				</v-col>
+				<v-row justify="center">
+					<v-col cols="12" md="6">
+						<v-data-table 
+							:items="filterFavoritesCoins" 
+							:headers="headersCoin"
+							class="mr-5">
+							<template slot="item" slot-scope="props">
+								<tr>
+									<router-link tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.name.toLowerCase() }}">
+										<td>{{ props.item.name }}</td>
+									</router-link> 
+									<td nowrape="true">{{ props.item.current_price }}</td>
+									<td nowrape="true">{{ props.item.high_24h }}</td>
+									<td nowrape="true"><v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.price_change_percentage_24h) }}%</v-chip></td>
+									<td v-if="auth">
+                                    <v-icon>mdi-delete</v-icon>
+                                </td>
+								</tr>
+							</template>
+							<template v-slot:no-data>
+								<p>The Table is Empty. Please insert data with the above Button.</p>
+							</template>
+						</v-data-table>
+					</v-col>
+				</v-row>
+			</v-row>
+		</v-container>
+  	</div>
 </template>
 
 <script>
@@ -52,7 +46,25 @@
       return {
         initialCoins: [],
         favoriteCoins: [],
-        filteredFavoriteCoins: []
+        filteredFavoriteCoins: [],
+         headersCoin: [
+                    {
+                        text: 'Name',
+                        align: 'start',
+                        value : 'symbol',
+                        width: "180px"
+                    },
+                    {
+                        text: 'Price (USD)',
+                        value: 'current_price'
+                    },
+                    {
+                        text: 'High (24h)'
+                    },
+					{
+                        text: 'Percent (24h)'
+                    },
+                ]
       }
     },
     components: {
