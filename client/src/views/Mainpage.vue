@@ -26,7 +26,12 @@
 								</tr>
 							</template>
 							<template v-slot:no-data>
-								<p>The Table is Empty. Please insert data with the above Button.</p>
+								<p>No crypto currencies in your favorite.<br>
+									To add a currency go here
+									<router-link class="black--text text-decoration-none" :to="{ name: 'Coins'}">
+										Crypto Currency
+									</router-link> 
+								</p>
 							</template>
 						</v-data-table>
 					</v-col>
