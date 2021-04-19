@@ -14,15 +14,15 @@
 							class="mr-5">
 							<template slot="item" slot-scope="props">
 								<tr>
+									<td v-if="auth">
+										<v-icon  @click="removeFavoriteCoin(props.item.id)">mdi-delete</v-icon>
+									</td>
 									<router-link tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.name.toLowerCase() }}">
 										<td>{{ props.item.name }}</td>
 									</router-link> 
 									<td nowrape="true">{{ props.item.current_price }}</td>
 									<td nowrape="true">{{ props.item.high_24h }}</td>
 									<td nowrape="true"><v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.price_change_percentage_24h) }}%</v-chip></td>
-									<td v-if="auth">
-                                    <v-icon>mdi-delete</v-icon>
-                                </td>
 								</tr>
 							</template>
 							<template v-slot:no-data>
@@ -45,6 +45,7 @@
   import { roundDecimal } from '@/plugins/roundDecimal.js'
   import cryptoeventslist from '@/components/CryptoEventsList.vue'
   import navbarapp from '@/components/NavBarApp.vue'
+  import store from  '@/store/store'
 
   export default {
     data(){
@@ -53,6 +54,9 @@
         favoriteCoins: [],
         filteredFavoriteCoins: [],
          headersCoin: [
+                    {
+                        text: '#'
+                    },
                     {
                         text: 'Name',
                         align: 'start',
@@ -96,7 +100,15 @@
       }
     },
     methods: {
-      roundDecimal
+		roundDecimal,
+		removeFavoriteCoin (coinId) {
+			const index = this.favoriteCoins.map(function(item) {
+    			return item.cryptoName
+			}).indexOf(coinId)
+
+			store.dispatch('user/removeFavoriteCrypto', coinId)				
+			this.favoriteCoins.splice(index, 1)
+		},
     }
   }
 </script>

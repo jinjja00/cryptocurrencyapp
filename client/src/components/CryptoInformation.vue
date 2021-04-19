@@ -8,7 +8,7 @@
                         :items="initialCoins"
                         class="mr-5"
                         :page="2"
-                        :hide-headers="isMobile" 
+                        :hide-default-headers="isMobile" 
                         :class="{mobile: isMobile}"
                         disable-sort>
                         <template slot="item" slot-scope="props">
