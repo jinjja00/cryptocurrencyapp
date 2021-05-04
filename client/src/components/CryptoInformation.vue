@@ -133,7 +133,7 @@
             async fetchCrypto () {
                 await this.$store.dispatch('crypto/fetchCrypto')
                 this.initialCoins = this.$store.state.crypto.cryptoNews
-                //setTimeout(() => this.fetchCrypto(), 60 * 1000) 
+                setTimeout(() => this.fetchCrypto(), 30 * 1000) 
             },
             AddToFavorite (coinId)  {
                 const coinIndex = this.favoriteCoins.findIndex(e => e.cryptoName === coinId)
