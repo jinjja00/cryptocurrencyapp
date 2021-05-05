@@ -38,6 +38,9 @@
                             <tr v-else>
                                 <td>
                                     <ul class="flex-content">
+                                         <li class="flex-item" v-if="auth">
+                                            <v-icon @click="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
+                                         </li>
                                         <li class="flex-item text-uppercase" data-label="Name">
                                             <router-link class="text-xs-right" align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
                                                 <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
@@ -54,7 +57,10 @@
                                         <li class="flex-item" data-label="Percent (7d)">
                                             Percent(7d): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</span>
                                         </li>
-                                        <li class="flex-item" data-label="Last Updated">{{ props.item.last_updated| moment("MMMM Do YYYY, h:mm:ss a") }}</li>
+                                        <li class="flex-item"></li>
+                                        <li class="caption"> 
+											{{ props.item.last_updated| moment("MM Do YY, h:mm a") }}
+										</li>
                                     </ul>
                                 </td>
                             </tr>
