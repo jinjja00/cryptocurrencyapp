@@ -37,31 +37,30 @@
                             </tr>
                             <tr v-else>
                                 <td>
-                                    <ul class="flex-content">
-                                         <li class="flex-item" v-if="auth">
-                                            <v-icon @click="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
-                                         </li>
-                                        <li class="flex-item text-uppercase" data-label="Name">
-                                            <router-link class="text-xs-right" align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
-                                                <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
-                                                    {{ props.item.name }}
-                                            </router-link> 
+                                    <router-link class="flex-content" tag="ul" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
+                                        <li class="flex-item" v-if="auth">
+                                            <v-icon @click.stop="AddToFavorite(props.item.id)" :color="favoriteUserCoins(props.item.id)">mdi-star</v-icon>
+                                        </li>
+                                        <li class="flex-item text-uppercase" data-label="Name">                                         
+                                            <img style="width:25px; vertical-align:middle" :src="props.item.image"/>
+                                            {{ props.item.name }}                                   
                                         </li>
                                         <li class="flex-item" data-label="Price (USD)">${{ roundDecimal(props.item.current_price) }} </li>
                                         <li class="flex-item"  data-label="Percent (1h)">
                                             Percent(1h): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %</span>
                                         </li>
                                         <li class="flex-item" data-label="Percent (24h)">
-                                            Percent(24h): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</span>
+                                            Percent(24h): <span :style="getColor(props.item.price_change_percentage_24h)">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</span>
                                         </li>
                                         <li class="flex-item" data-label="Percent (7d)">
-                                            Percent(7d): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</span>
+                                            Percent(7d): <span :style="getColor(props.item.price_change_percentage_7d_in_currency)">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</span>
                                         </li>
                                         <li class="flex-item"></li>
                                         <li class="caption"> 
-											{{ props.item.last_updated| moment("MM Do YY, h:mm a") }}
-										</li>
-                                    </ul>
+                                            {{ props.item.last_updated| moment("MM Do YY, h:mm a") }}
+                                        </li>
+                                     
+                                    </router-link>
                                 </td>
                             </tr>
                         </template>
@@ -128,9 +127,10 @@
                 ]
             }
         },
-        async mounted () {
+        created () {
             this.fetchCrypto()
-
+        },
+        async mounted () {
             await this.$store.dispatch('user/setFavoriteCrypto')
             this.favoriteCoins = this.$store.state.user.favoriteCrypto
             console.log(this.favoriteCoins)
@@ -236,18 +236,16 @@
 
     }
     .flex-content {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
     .flex-item {
-      padding: 5px;
-      width: 50%;
-      height: 40px;
-      font-weight: bold;
+        width: 50%;
+        font-weight: bold;
     }
 </style>

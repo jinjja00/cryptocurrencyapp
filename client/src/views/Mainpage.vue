@@ -6,67 +6,53 @@
 				<v-col cols="12" md="2" sm>
 					<cryptoeventslist/>
 				</v-col>
-				<v-row justify="center">
+				<v-col cols="12">
 					<v-layout v-resize="onResize">
-						<v-col cols="12">
-							<v-data-table 
-								:items="filterFavoritesCoins" 
-								:headers="headersCoin"
-								:hide-default-headers="isMobile" 
-								:class="{mobile: isMobile}"
-								 disable-sort>
-								<template slot="item" slot-scope="props">
-									<tr v-if="!isMobile">
-										<td v-if="auth">
-											<v-icon @click="removeFavoriteCoin(props.item.id)">mdi-delete</v-icon>
-										</td>
-										<router-link tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.name.toLowerCase() }}">
-											<td>{{ props.item.name }}</td>
-										</router-link> 
-										<td nowrape="true">{{ props.item.current_price }}</td>
-										<td nowrape="true">{{ props.item.high_24h }}</td>
-										<td nowrape="true"><v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.price_change_percentage_24h) }}%</v-chip></td>
-									</tr>
-									<tr v-else>
-										<td>
-											<ul class="flex-content">
-												<li class="flex-item" v-if="auth"><v-icon @click="removeFavoriteCoin(props.item.id)">mdi-delete</v-icon></li>
-												<li class="flex-item text-uppercase" data-label="Name">
-													<router-link class="text-xs-right" align="baseline" tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">
-														<img style="width:25px; vertical-align:middle" :src="props.item.image"/>
-															{{ props.item.name }}															
-													</router-link> 
-												</li>
-												<li class="flex-item" data-label="Price (USD)">${{ roundDecimal(props.item.current_price) }} </li>
-												<li class="flex-item"  data-label="Percent (1h)">
-                                            		Percent(1h): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_1h_in_currency) }} %</span>
-                                       			</li>
-												<li class="flex-item" data-label="Percent (24h)">
-													Percent(24h): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_24h) }} %</span>
-												</li>
-                                        		<li class="flex-item" data-label="Percent (7d)">
-                                            		Percent(7d): <span :style="getColor(props.item.price_change_percentage_1h_in_currency)">{{ roundDecimal(props.item.price_change_percentage_7d_in_currency) }} %</span>
-												</li>
-												<li class="flex-item"></li>
-												<li class="caption"> 
-													{{ props.item.last_updated| moment("MM Do YY, h:mm a") }}
-												</li>								
-											</ul>
-										</td>
-                            		</tr>
-								</template>
-								<template v-slot:no-data>
-									<p>No crypto currencies in your favorite.<br>
-										To add a currency go here
-										<router-link class="black--text text-decoration-none" :to="{ name: 'Coins'}">
-											Crypto Currency
-										</router-link> 
-									</p>
-								</template>
-							</v-data-table>
-						</v-col>
+						<v-data-table 
+							:items="filterFavoritesCoins"
+							:headers="headersCoin"
+							:hide-default-headers="isMobile" 
+							:class="{mobile: isMobile}"
+							disable-sort>
+							<template slot="item" slot-scope="props">
+								<tr v-if="!isMobile">
+									<td v-if="auth">
+										<v-icon @click="removeFavoriteCoin(props.item.id)">mdi-delete</v-icon>
+									</td>
+									<router-link tag="td" :to="{ name: 'CoinInformation', params: { id: props.item.name.toLowerCase() }}">
+										<td>{{ props.item.name }}</td>
+									</router-link> 
+									<td nowrape="true">{{ props.item.current_price }}</td>
+									<td nowrape="true">{{ props.item.high_24h }}</td>
+									<td nowrape="true"><v-chip color="grey darken-1" dark>{{ roundDecimal(props.item.price_change_percentage_24h) }}%</v-chip></td>
+								</tr>
+								<tr v-else>
+									<td>
+										<router-link class="flex-content" tag="ul" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">										
+											<li class="flex-item text-uppercase" data-label="Name">														
+												<img style="width:25px; vertical-align:middle" :src="props.item.image"/>
+												{{ props.item.name }}																													
+											</li>
+											<li class="flex-item"  data-label="Percent (1h)">
+												<v-sparkline :color="getColor(props.item.price_change_percentage_7d_in_currency)" :value="props.item.sparkline_in_7d.price"></v-sparkline>
+											</li>
+											<li class="flex-item" data-label="Price (USD)">${{ roundDecimal(props.item.current_price) }} </li>
+											<v-icon  v-if="auth" @click.stop="removeFavoriteCoin(props.item.id)">mdi-delete</v-icon>			
+										</router-link>									
+									</td>
+								</tr>
+							</template>
+							<template v-slot:no-data>
+								<p>No crypto currencies in your favorite.<br>
+									To add a currency go here
+									<router-link class="black--text text-decoration-none" :to="{ name: 'Coins'}">
+										Crypto Currency
+									</router-link> 
+								</p>
+							</template>
+						</v-data-table>
 					</v-layout>
-				</v-row>
+				</v-col>
 			</v-row>
 		</v-container>
 	</div>
@@ -86,26 +72,26 @@
         favoriteCoins: [],
         filteredFavoriteCoins: [],
         headersCoin: [
-                    {
-                        text: '#'
-                    },
-                    {
-                        text: 'Name',
-                        align: 'start',
-                        value : 'symbol',
-                        width: "180px"
-                    },
-                    {
-                        text: 'Price (USD)',
-                        value: 'current_price'
-                    },
-                    {
-                        text: 'High (24h)'
-                    },
-					{
-                        text: 'Percent (24h)'
-                    },
-                ]
+			{
+				text: '#'
+			},
+			{
+				text: 'Name',
+				align: 'start',
+				value : 'symbol',
+				width: "180px"
+			},
+			{
+				text: 'Price (USD)',
+				value: 'current_price'
+			},
+			{
+				text: 'High (24h)'
+			},
+			{
+				text: 'Percent (24h)'
+			},
+        ]
       }
     },
     components: {
@@ -148,14 +134,14 @@
 				this.isMobile = false;
         },
 		getColor (num) {
-                return num > 0 ? "color:green" : "color:red";
+                return num > 0 ? "green" : "red";
         },
     }
   }
 </script>
 
 <style scoped>
-    tr:hover {
+     tr:hover {
         background-color: transparent !important;
     }
      .mobile {
@@ -205,19 +191,18 @@
 
     }
     .flex-content {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+		flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
     }
 
     .flex-item {
-      padding: 5px;
-      width: 50%;
-      height: 40px;
-      font-weight: bold;
+        width: 45%;
+        font-weight: bold;
     }
 </style>
 
