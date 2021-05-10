@@ -3,7 +3,7 @@
 		<navbarapp/>
 		<v-container>
 			<v-row>
-				<v-col cols="12" md="2" sm>
+				<v-col cols="12">
 					<cryptoeventslist/>
 				</v-col>
 				<v-col cols="12">
