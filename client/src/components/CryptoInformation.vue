@@ -10,7 +10,9 @@
                         :page="2"
                         :hide-default-headers="isMobile" 
                         :class="{mobile: isMobile}"
-                        disable-sort>
+                        disable-sort
+                        :loading="loadingCoins"
+                        loading-text="Loading... Please wait">
                         <template slot="item" slot-scope="props">
                             <tr v-if="!isMobile">
                                 <td v-if="auth">
@@ -79,6 +81,7 @@
     export default {
         data () {
             return {
+                loadingCoins: true,
                 isMobile: false,
                 initialCoins: [],
                 favoriteCoins: [],
@@ -139,7 +142,8 @@
             async fetchCrypto () {
                 await this.$store.dispatch('crypto/fetchCrypto')
                 this.initialCoins = this.$store.state.crypto.cryptoNews
-                setTimeout(() => this.fetchCrypto(), 30 * 1000) 
+                this.loadingCoins = false
+                setTimeout(() => this.fetchCrypto(), 60 * 1000) 
             },
             AddToFavorite (coinId)  {
                 const coinIndex = this.favoriteCoins.findIndex(e => e.cryptoName === coinId)

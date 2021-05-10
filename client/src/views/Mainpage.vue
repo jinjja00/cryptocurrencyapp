@@ -13,7 +13,9 @@
 							:headers="headersCoin"
 							:hide-default-headers="isMobile" 
 							:class="{mobile: isMobile}"
-							disable-sort>
+							disable-sort
+              				:loading="loadingCoins"
+              				loading-text="Loading... Please wait">
 							<template slot="item" slot-scope="props">
 								<tr v-if="!isMobile">
 									<td v-if="auth">
@@ -30,8 +32,8 @@
 									<td>
 										<router-link class="flex-content" tag="ul" :to="{ name: 'CoinInformation', params: { id: props.item.id }}">										
 											<li class="flex-item text-uppercase" data-label="Name">														
-												<img style="width:25px; vertical-align:middle" :src="props.item.image"/>
-												{{ props.item.name }}																													
+												<img class="coin" style="vertical-align:middle" :src="props.item.image"/>
+												{{ props.item.symbol }}																													
 											</li>
 											<li class="flex-item"  data-label="Percent (1h)">
 												<v-sparkline :color="getColor(props.item.price_change_percentage_7d_in_currency)" :value="props.item.sparkline_in_7d.price"></v-sparkline>
@@ -67,7 +69,8 @@
   export default {
     data(){
       return {
-		isMobile: false,
+        loadingCoins: true,
+		    isMobile: false,
         initialCoins: [],
         favoriteCoins: [],
         filteredFavoriteCoins: [],
@@ -104,6 +107,8 @@
 
       this.initialCoins = this.$store.state.crypto.cryptoNews
       this.favoriteCoins = this.$store.state.user.favoriteCrypto
+
+      this.loadingCoins = false
     },
     computed: {
       auth() {
@@ -132,76 +137,33 @@
 				this.isMobile = true;
 			else
 				this.isMobile = false;
-        },
+    	},
 		getColor (num) {
-                return num > 0 ? "green" : "red";
-        },
+			return num > 0 ? "green" : "red";
+		},
     }
   }
 </script>
 
 <style scoped>
+	.coin{
+		width: 20%;
+	}
      tr:hover {
         background-color: transparent !important;
-    }
-     .mobile {
-      color: #333;
-    }
-
-    @media screen and (max-width: 768px) {
-      .mobile table.v-table tr {
-        max-width: 100%;
-        position: relative;
-        display: block;
-      }
-
-      .mobile table.v-table tr:nth-child(odd) {
-        border-left: 6px solid deeppink;
-      }
-
-      .mobile table.v-table tr:nth-child(even) {
-        border-left: 6px solid cyan;
-      }
-
-      .mobile table.v-table tr td {
-        display: flex;
-        width: 100%;
-        border-bottom: 1px solid #f5f5f5;
-        height: auto;
-        padding: 10px;
-      }
-
-      .mobile table.v-table tr td ul li:before {
-        content: attr(data-label);
-        padding-right: .5em;
-        text-align: left;
-        display: block;
-        color: #999;
-
-      }
-      .v-datatable__actions__select
-      {
-        width: 50%;
-        margin: 0px;
-        justify-content: flex-start;
-      }
-      .mobile .theme--light.v-table tbody tr:hover:not(.v-datatable__expand-row) {
-        background: transparent;
-      }
-
     }
     .flex-content {
         padding: 0;
         margin: 0;
         list-style: none;
         display: flex;
-		flex-direction: row;
-        flex-wrap: wrap;
+		    flex-direction: row;
         width: 100%;
     }
 
     .flex-item {
-        width: 45%;
+        margin-right: 5%;
+        width: 50%;
         font-weight: bold;
     }
 </style>
