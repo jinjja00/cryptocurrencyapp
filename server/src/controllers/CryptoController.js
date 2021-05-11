@@ -1,5 +1,5 @@
 const CoinGecko = require('coingecko-api')
-
+const fetch = require('node-fetch');
 const CoinGeckoClient = new CoinGecko()
 
 module.exports = {
@@ -47,5 +47,16 @@ module.exports = {
       .catch(error => {
         console.log(error)
       })
+    },
+    async getCryptoTrending(req, res) {
+        try {
+          const response = await fetch("https://api.coingecko.com/api/v3/search/trending", {
+	          method: 'get',
+           })
+           .then(response => response.json())
+           .then(data => res.send(data))
+        } catch (error) {
+          console.log(error)
+        }
     }
 }
