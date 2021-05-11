@@ -4,6 +4,7 @@ const state = {
     cryptoNews: [],
     cryptoQuotePriceHistory: [],
     cryptoEventIncoming: [],
+    cryptoTrending: [],
     coinInformation: {}
 }
 
@@ -19,6 +20,9 @@ const mutations = {
     },
     setCryptoEvents(state, event) {
         state.cryptoEventIncoming = event
+    },
+    setCryptoTrending(state, crypto) {
+        state.cryptoTrending = crypto
     }
 }
   
@@ -59,6 +63,13 @@ const actions = {
         .then(response => response.data)
         .then(events => {
             commit('setCryptoEvents', events)
+        })
+    },
+    fetchCryptoTrending({commit}, state) {
+        return Api().get('getcryptotrending')
+        .then(response => response.data)
+        .then(trending => {
+            commit('setCryptoTrending', trending)
         })
     }
 }

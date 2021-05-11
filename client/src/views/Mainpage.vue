@@ -70,7 +70,7 @@
     data(){
       return {
         loadingCoins: true,
-		    isMobile: false,
+		isMobile: false,
         initialCoins: [],
         favoriteCoins: [],
         filteredFavoriteCoins: [],
@@ -102,7 +102,7 @@
       navbarapp
     },
     async mounted () {
-      await this.$store.dispatch('crypto/fetchCrypto')
+	  await this.$store.dispatch('crypto/fetchCrypto')
       await this.$store.dispatch('user/setFavoriteCrypto')
 
       this.initialCoins = this.$store.state.crypto.cryptoNews
