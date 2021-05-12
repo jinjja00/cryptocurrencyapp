@@ -5,10 +5,10 @@
             <nav-bar></nav-bar>
             <v-divider dark></v-divider>
             <div class="wave-container">
-                    <h1>Your crypto news!</h1>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                        <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-                    </svg>
+                <h1>Your crypto news!</h1>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill="#f3f4f5" fill-opacity="1" d="M0,96L60,128C120,160,240,224,360,208C480,192,600,96,720,53.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+                </svg>
             </div>
             </header>
         </v-lazy>
@@ -25,6 +25,19 @@
                 </v-col> 
                 <v-col md="3" align="center" class="mt-9 mb-9">
                     <cryptotablehomepage/>
+                </v-col> 
+            </v-row>
+        </v-container>
+        <v-container fluid class="black">
+            <v-row  justify="center" align="center" no-gutters>
+                <v-col align="center" class="mt-9 mb-9">
+                    <h3 class="text-uppercase font-size-custom text-center white--text">Invest in the future</h3>
+                    <v-btn  class="btn-signup mt-1" to="/register">
+                        Sign up now
+                    </v-btn>
+                </v-col> 
+                <v-col  class="hidden-sm-and-down">
+                    <img class="logo-woman" svg-inline :src="require('@/assets/cryptologo/undraw_nakamoto_2iv6.svg')" height="400" width="400"/>
                 </v-col> 
             </v-row>
         </v-container>
@@ -45,7 +58,8 @@
                                     :to="{ name: 'CoinInformation', params: { id: coin.item.id.toLowerCase() }}"
                                     height="120"
                                     class="ma-4"
-                                    width="100">
+                                    style="width:120px;"
+                                   >
                                         <v-row
                                             class="fill-height ma-3"
                                             align="center"
@@ -61,6 +75,19 @@
                 </v-slide-group>
             </v-sheet>
         </v-container>
+        <v-divider class="ma-5"></v-divider>
+        <v-container class="btn-signup-desktop">
+            <v-row  justify="center" align="center" no-gutters>
+                <v-col md="5" class="hidden-sm-and-down">
+                    <img class="logo-woman" svg-inline :src="require('@/assets/cryptologo/undraw_Bitcoin_P2P_re_1xqa.svg')" height="400" width="400"/>
+                </v-col>
+                <v-col md="5" align="center" class="mt-9 mb-9">
+                    <v-btn outlined  x-large color="indigo" class="mt-1" to="/register">
+                        Sign up now
+                    </v-btn>
+                </v-col>  
+            </v-row>
+        </v-container>
         <footercrypto/>
     </div>
 </template>
@@ -69,8 +96,7 @@
         import navBar from '@/components/NavBar'
         import footercrypto from '@/components/CryptoFooter.vue'
         import cryptotablehomepage from '@/components/CryptoTableHomePage.vue'
-        import store from  '@/store/store'
-  
+
         export default {
             components: {
                 navBar,
@@ -79,14 +105,12 @@
             },
             data(){
                 return {
-                    trendingCoin: [],
-            
+                    trendingCoin: [],         
                 }
             },
             async mounted () {
                 await this.$store.dispatch('crypto/fetchCryptoTrending')
                 this.trendingCoin = this.$store.state.crypto.cryptoTrending
-                console.log(this.trendingCoin)
             }
         }
 </script>
@@ -94,6 +118,9 @@
 <style scoped>
     .font-size-custom {
         font-size: 3em;
+    }
+    .btn-signup{
+        display:none;
     }
     h1 {
         font-size: 5rem;
@@ -143,6 +170,12 @@
         }
     }
     @media screen and (max-device-width : 700px) {
+        .btn-signup{
+            display:block;
+        }
+        .btn-signup-desktop {
+            display:none;
+        }
         h1 {
              margin: 2rem 1rem;
         }

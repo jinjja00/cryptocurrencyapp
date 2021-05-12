@@ -6,7 +6,7 @@
 				<v-col cols="12">
 					<cryptoeventslist/>
 				</v-col>
-				<v-col cols="12">
+				<v-col cols="12" justify="center">
 					<v-layout v-resize="onResize">
 						<v-data-table 
 							:items="filterFavoritesCoins"
