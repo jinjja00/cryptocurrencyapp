@@ -78,7 +78,7 @@
         <v-divider class="ma-5"></v-divider>
         <v-container class="btn-signup-desktop">
             <v-row  justify="center" align="center" no-gutters>
-                <v-col md="5" class="hidden-sm-and-down">
+                <v-col md="5" align="center" class="hidden-sm-and-down">
                     <img class="logo-woman" svg-inline :src="require('@/assets/cryptologo/undraw_Bitcoin_P2P_re_1xqa.svg')" height="400" width="400"/>
                 </v-col>
                 <v-col md="5" align="center" class="mt-9 mb-9">

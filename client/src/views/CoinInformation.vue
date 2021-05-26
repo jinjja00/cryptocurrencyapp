@@ -6,12 +6,24 @@
                     <v-img width="50" :src="currentCoinInformation.image.large" aspect-ratio="1"></v-img>
                     {{currentCoinInformation.name}}
                     <h3 class="overline">{{currentCoinInformation.last_updated | moment("MMMM Do YYYY, h:mm:ss a")}}</h3>
+                    <h3 class="overline">Market Cap</h3>
+                    <span>Rank #{{currentCoinInformation.market_cap_rank}}</span>
+                    <h3 class="overline">Market Cap</h3>
+                    <span> $ {{Intl.NumberFormat().format(currentCoinInformation.market_data.market_cap.usd)}}</span>
                 </v-col>
                 <v-col cols="4" md="4" align="end">
                      <h1>$ {{currentCoinInformation.market_data.current_price.usd}}</h1>
                  </v-col>
             </v-row>
+        </v-container>
+        <v-container>
             <v-row justify="center">
+                <v-col>
+                    
+                </v-col>
+            </v-row>
+        </v-container>
+            <!--<v-row justify="center">
                 <v-col cols="2" md="2">
                     <h3 class="overline">Market Cap</h3>
                     <span>Rank #{{currentCoinInformation.market_cap_rank}}</span>
@@ -23,6 +35,17 @@
                     <span class="font-weight-regular">$ {{currentCoinInformation.market_data.low_24h.usd}} / $ {{currentCoinInformation.market_data.high_24h.usd}}</span>
                     <h3 class="overline">Circulating Supply</h3>
                     <span>{{currentCoinInformation.market_data.circulating_supply}} / {{currentCoinInformation.market_data.total_supply}}</span>
+                </v-col>
+                <v-col cols="2">
+                      <h3 class="overline mr-5">Price Change 24h(%)</h3>
+                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_24h) }}</span>
+
+                    <h3 class="overline mr-5">Price Change 7d(%)</h3>
+                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_7d) }}</span>
+
+                    <h3 class="overline mr-5">Price Change 30d(%)</h3>
+                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_30d) }}</span>
+           
                 </v-col>
                 <v-col cols="8" md="4" align="end">
                     <v-btn rounded class="ma-2 pa-4" color="black" dark small :href="currentCoinInformation.links.subreddit_url" target="_blank">
@@ -39,32 +62,7 @@
                     </v-btn>
 
                 </v-col>
-            </v-row>
-        </v-container>
-        <v-container class="pa-16">
-            <v-row justify="center">
-                 <!--<v-col cols="6" md="4">
-                    <h3 class="overline">Low 24h / High 24h</h3>
-                    <span class="font-weight-regular">$ {{currentCoinInformation.market_data.low_24h.usd}} / $ {{currentCoinInformation.market_data.high_24h.usd}}</span>
-
-                    <h3 class="overline">Market Cap</h3>
-                    <span> $ {{Intl.NumberFormat().format(currentCoinInformation.market_data.market_cap.usd)}}</span>
-
-                    <h3 class="overline">Circulating Supply</h3>
-                    <span>{{currentCoinInformation.market_data.circulating_supply}} / {{currentCoinInformation.market_data.total_supply}}</span>
-                </v-col>-->
-                   <v-col class="d-flex align-center justify-center">
-                    <h3 class="overline mr-5">Price Change 24h(%)</h3>
-                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_24h) }}</span>
-
-                    <h3 class="overline mr-5">Price Change 7d(%)</h3>
-                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_7d) }}</span>
-
-                    <h3 class="overline mr-5">Price Change 30d(%)</h3>
-                    <span class="mr-5">{{ roundDecimal(currentCoinInformation.market_data.price_change_percentage_30d) }}</span>
-                </v-col>
-            </v-row>
-        </v-container>
+            </v-row>-->
         <v-divider class="mx-16"></v-divider>
         <apexchart class="chartHeightWidth" v-if="options.series" type="line" :options="options" :series="options.series" ref="apexchart"></apexchart>
         <footercrypto/>

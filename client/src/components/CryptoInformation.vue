@@ -2,8 +2,9 @@
     <v-container>
         <v-row justify="center">
             <v-col cols="12">
-                <v-layout v-resize="onResize">
+                <v-layout v-resize="onResize" justify-center="true">
                     <v-data-table
+                        style="width:90%"
                         :headers="headerFiltered"
                         :items="initialCoins"
                         class="mr-5"

@@ -6,9 +6,10 @@
 				<v-col cols="12">
 					<cryptoeventslist/>
 				</v-col>
-				<v-col cols="12" justify="center">
-					<v-layout v-resize="onResize">
-						<v-data-table 
+				<v-col cols="12" >
+					<v-layout v-resize="onResize" justify-center="true">
+						<v-data-table
+							style="width:90%"
 							:items="filterFavoritesCoins"
 							:headers="headersCoin"
 							:hide-default-headers="isMobile" 
