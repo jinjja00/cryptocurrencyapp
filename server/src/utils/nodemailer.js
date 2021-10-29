@@ -19,13 +19,13 @@ async function sendEmailToVerifyAccount(userId, userEmail, userCode) {
     service: 'gmail',
     host: 'smtp.gmail.com',
     auth: {
-      user: 'enbis95@gmail.com',
-      pass: 'Ganimet0022!'
+      user: '#',
+      pass: '#'
     }
   })
 
   const mailOptions = {
-    from: `enbis95@gmail.com`,
+    from: `#`,
     to: userEmail,
     subject: "Activated your cryptobis account",
     html: htmlToSend,
